@@ -1,8 +1,8 @@
 // 완료 후 피드백 화면. (MVP 문서 섹션 10.5)
 
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { Button, Screen } from "../components/ui";
-import type { FeedbackInput } from "../state/useOddayFlow";
+import type { FeedbackDraft, FeedbackInput } from "../state/useOddayFlow";
 
 // 핵심 질문 선택지 → wouldNotHaveDoneWithoutOdday 매핑 (섹션 10.5)
 const CAUSED_OPTIONS: {
@@ -26,13 +26,21 @@ const RETRY_OPTIONS: {
 ];
 
 export function FeedbackScreen({
+  draft,
+  onDraftChange,
   onSubmit,
 }: {
+  draft: FeedbackDraft;
+  onDraftChange: Dispatch<SetStateAction<FeedbackDraft>>;
   onSubmit: (input: FeedbackInput) => void;
 }) {
-  const [causedIdx, setCausedIdx] = useState<number | null>(null);
-  const [retry, setRetry] = useState<FeedbackInput["retryIntent"] | null>(null);
-  const [note, setNote] = useState("");
+  const { causedIdx, retryIntent: retry, note } = draft;
+  const setCausedIdx = (idx: number) =>
+    onDraftChange((prev) => ({ ...prev, causedIdx: idx }));
+  const setRetry = (value: FeedbackInput["retryIntent"]) =>
+    onDraftChange((prev) => ({ ...prev, retryIntent: value }));
+  const setNote = (value: string) =>
+    onDraftChange((prev) => ({ ...prev, note: value }));
 
   const ready = causedIdx !== null && retry !== null;
 

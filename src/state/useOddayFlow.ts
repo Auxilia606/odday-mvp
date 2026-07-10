@@ -2,6 +2,7 @@
 // 스텝 전환 지점에서 대응 이벤트를 trackEvent로 발생시킨다.
 
 import { useCallback, useEffect, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import type { ContextSelection, Quest } from "../types/quest";
 import { getQuestById, pickQuests } from "../data/quests";
 import { trackEvent } from "../lib/analytics";
@@ -18,6 +19,7 @@ interface PersistedFlow {
   activeQuestId: string | null;
   seenIds: string[];
   questStarted: boolean;
+  feedbackDraft: FeedbackDraft;
 }
 
 function loadPersistedFlow(): PersistedFlow | null {
@@ -45,6 +47,19 @@ export interface FeedbackInput {
   note?: string;
 }
 
+// 피드백 화면 입력값 초안. 제출 전 새로고침에도 유지되도록 flow에 둔다.
+export interface FeedbackDraft {
+  causedIdx: number | null;
+  retryIntent: FeedbackInput["retryIntent"] | null;
+  note: string;
+}
+
+export const EMPTY_FEEDBACK_DRAFT: FeedbackDraft = {
+  causedIdx: null,
+  retryIntent: null,
+  note: "",
+};
+
 export interface OddayFlow {
   step: Step;
   context: ContextSelection | null;
@@ -52,6 +67,9 @@ export interface OddayFlow {
   activeQuest: Quest | null;
   // "이걸 해볼래요"를 눌러 수행에 진입했는지 여부 (detail 화면 하위 상태)
   questStarted: boolean;
+  // 피드백 화면 입력 초안 (feedback 화면 하위 상태)
+  feedbackDraft: FeedbackDraft;
+  setFeedbackDraft: Dispatch<SetStateAction<FeedbackDraft>>;
 
   start: () => void;
   selectContext: (ctx: ContextSelection) => void;
@@ -89,6 +107,9 @@ export function useOddayFlow(): OddayFlow {
   const [questStarted, setQuestStarted] = useState<boolean>(
     () => initial?.questStarted ?? false,
   );
+  const [feedbackDraft, setFeedbackDraft] = useState<FeedbackDraft>(
+    () => initial?.feedbackDraft ?? EMPTY_FEEDBACK_DRAFT,
+  );
 
   // 상태가 바뀔 때마다 세션에 저장. 복원은 setState로만 하므로 이벤트는 재발생하지 않는다.
   useEffect(() => {
@@ -99,13 +120,14 @@ export function useOddayFlow(): OddayFlow {
       activeQuestId: activeQuest?.id ?? null,
       seenIds,
       questStarted,
+      feedbackDraft,
     };
     try {
       sessionStorage.setItem(FLOW_KEY, JSON.stringify(data));
     } catch {
       // 저장 실패는 무시
     }
-  }, [step, context, candidates, activeQuest, seenIds, questStarted]);
+  }, [step, context, candidates, activeQuest, seenIds, questStarted, feedbackDraft]);
 
   const emitImpressions = useCallback((quests: Quest[]) => {
     for (const q of quests) {
@@ -178,6 +200,8 @@ export function useOddayFlow(): OddayFlow {
         questId: activeQuest.id,
         elapsedBucket: elapsed,
       });
+      // 매번 새 피드백은 빈 폼으로 시작 (이후 입력은 새로고침에도 유지)
+      setFeedbackDraft(EMPTY_FEEDBACK_DRAFT);
       setStep("feedback");
     },
     [activeQuest],
@@ -201,6 +225,7 @@ export function useOddayFlow(): OddayFlow {
         satisfaction: input.satisfaction,
         note: input.note,
       });
+      setFeedbackDraft(EMPTY_FEEDBACK_DRAFT);
       setStep("next");
     },
     [activeQuest],
@@ -257,6 +282,8 @@ export function useOddayFlow(): OddayFlow {
     candidates,
     activeQuest,
     questStarted,
+    feedbackDraft,
+    setFeedbackDraft,
     start,
     selectContext,
     selectQuest,

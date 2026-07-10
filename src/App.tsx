@@ -73,7 +73,11 @@ export default function App() {
       )}
 
       {flow.step === "feedback" && (
-        <FeedbackScreen onSubmit={flow.submitFeedback} />
+        <FeedbackScreen
+          draft={flow.feedbackDraft}
+          onDraftChange={flow.setFeedbackDraft}
+          onSubmit={flow.submitFeedback}
+        />
       )}
 
       {flow.step === "next" && (
