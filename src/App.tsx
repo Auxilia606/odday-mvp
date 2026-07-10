@@ -60,6 +60,7 @@ export default function App() {
       {flow.step === "detail" && flow.activeQuest && (
         <QuestDetailScreen
           quest={flow.activeQuest}
+          started={flow.questStarted}
           onStart={flow.startQuest}
           onComplete={flow.completeQuest}
           onSkip={(reason) => {

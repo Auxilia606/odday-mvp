@@ -1,11 +1,33 @@
 // Odday 사용자 흐름 상태 관리. (MVP 문서 섹션 8)
 // 스텝 전환 지점에서 대응 이벤트를 trackEvent로 발생시킨다.
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { ContextSelection, Quest } from "../types/quest";
 import { getQuestById, pickQuests } from "../data/quests";
 import { trackEvent } from "../lib/analytics";
 import { addRecord } from "../lib/storage";
+
+// 진행 중 흐름을 세션 동안 유지한다. 새로고침엔 복원되고, 탭을 닫으면 초기화된다.
+// 퀘스트/후보는 id만 저장하고 복원 시 데이터셋에서 다시 조회한다.
+const FLOW_KEY = "odday-flow";
+
+interface PersistedFlow {
+  step: Step;
+  context: ContextSelection | null;
+  candidateIds: string[];
+  activeQuestId: string | null;
+  seenIds: string[];
+  questStarted: boolean;
+}
+
+function loadPersistedFlow(): PersistedFlow | null {
+  try {
+    const raw = sessionStorage.getItem(FLOW_KEY);
+    return raw ? (JSON.parse(raw) as PersistedFlow) : null;
+  } catch {
+    return null;
+  }
+}
 
 export type Step =
   | "start"
@@ -28,6 +50,8 @@ export interface OddayFlow {
   context: ContextSelection | null;
   candidates: Quest[];
   activeQuest: Quest | null;
+  // "이걸 해볼래요"를 눌러 수행에 진입했는지 여부 (detail 화면 하위 상태)
+  questStarted: boolean;
 
   start: () => void;
   selectContext: (ctx: ContextSelection) => void;
@@ -45,12 +69,43 @@ export interface OddayFlow {
 }
 
 export function useOddayFlow(): OddayFlow {
-  const [step, setStep] = useState<Step>("start");
-  const [context, setContext] = useState<ContextSelection | null>(null);
-  const [candidates, setCandidates] = useState<Quest[]>([]);
-  const [activeQuest, setActiveQuest] = useState<Quest | null>(null);
+  // 세션에 저장된 흐름이 있으면 그대로 이어서 시작한다. (lazy init: 최초 1회)
+  const [initial] = useState(loadPersistedFlow);
+
+  const [step, setStep] = useState<Step>(() => initial?.step ?? "start");
+  const [context, setContext] = useState<ContextSelection | null>(
+    () => initial?.context ?? null,
+  );
+  const [candidates, setCandidates] = useState<Quest[]>(() =>
+    (initial?.candidateIds ?? [])
+      .map(getQuestById)
+      .filter((q): q is Quest => q != null),
+  );
+  const [activeQuest, setActiveQuest] = useState<Quest | null>(() =>
+    initial?.activeQuestId ? (getQuestById(initial.activeQuestId) ?? null) : null,
+  );
   // 이미 노출/수행한 퀘스트는 다음 추천에서 제외 (섹션 22.1 중복 방지 취지)
-  const [seenIds, setSeenIds] = useState<string[]>([]);
+  const [seenIds, setSeenIds] = useState<string[]>(() => initial?.seenIds ?? []);
+  const [questStarted, setQuestStarted] = useState<boolean>(
+    () => initial?.questStarted ?? false,
+  );
+
+  // 상태가 바뀔 때마다 세션에 저장. 복원은 setState로만 하므로 이벤트는 재발생하지 않는다.
+  useEffect(() => {
+    const data: PersistedFlow = {
+      step,
+      context,
+      candidateIds: candidates.map((q) => q.id),
+      activeQuestId: activeQuest?.id ?? null,
+      seenIds,
+      questStarted,
+    };
+    try {
+      sessionStorage.setItem(FLOW_KEY, JSON.stringify(data));
+    } catch {
+      // 저장 실패는 무시
+    }
+  }, [step, context, candidates, activeQuest, seenIds, questStarted]);
 
   const emitImpressions = useCallback((quests: Quest[]) => {
     for (const q of quests) {
@@ -92,6 +147,7 @@ export function useOddayFlow(): OddayFlow {
       category: quest.category,
     });
     setActiveQuest(quest);
+    setQuestStarted(false);
     setStep("detail");
   }, []);
 
@@ -111,6 +167,7 @@ export function useOddayFlow(): OddayFlow {
   const startQuest = useCallback(() => {
     if (!activeQuest) return;
     trackEvent({ type: "quest_started", questId: activeQuest.id });
+    setQuestStarted(true);
   }, [activeQuest]);
 
   const completeQuest = useCallback(
@@ -165,6 +222,7 @@ export function useOddayFlow(): OddayFlow {
       setCandidates(picked);
       setSeenIds((prev) => [...prev, ...picked.map((q) => q.id)]);
       setActiveQuest(null);
+      setQuestStarted(false);
       emitImpressions(picked);
       setStep("quests");
     },
@@ -184,10 +242,12 @@ export function useOddayFlow(): OddayFlow {
   const goToStart = useCallback(() => {
     setStep("start");
     setActiveQuest(null);
+    setQuestStarted(false);
   }, []);
 
   const goToQuests = useCallback(() => {
     setActiveQuest(null);
+    setQuestStarted(false);
     setStep("quests");
   }, []);
 
@@ -196,6 +256,7 @@ export function useOddayFlow(): OddayFlow {
     context,
     candidates,
     activeQuest,
+    questStarted,
     start,
     selectContext,
     selectQuest,

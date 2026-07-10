@@ -28,18 +28,19 @@ const DURATION_LABEL: Record<string, string> = {
 
 export function QuestDetailScreen({
   quest,
+  started,
   onStart,
   onComplete,
   onSkip,
   onBack,
 }: {
   quest: Quest;
+  started: boolean;
   onStart: () => void;
   onComplete: (elapsed?: "under_5m" | "5_20m" | "over_20m") => void;
   onSkip: (reason?: string) => void;
   onBack: () => void;
 }) {
-  const [started, setStarted] = useState(false);
   const [skipping, setSkipping] = useState(false);
 
   const minDuration = quest.durations[0];
@@ -111,14 +112,7 @@ export function QuestDetailScreen({
         </div>
       ) : !started ? (
         <div className="mt-auto space-y-3 pt-6">
-          <Button
-            onClick={() => {
-              onStart();
-              setStarted(true);
-            }}
-          >
-            이걸 해볼래요
-          </Button>
+          <Button onClick={onStart}>이걸 해볼래요</Button>
           <Button variant="ghost" onClick={() => setSkipping(true)}>
             오늘은 이건 별로예요
           </Button>
