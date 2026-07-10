@@ -17,7 +17,13 @@ export function QuestListScreen({
   onReshuffle: () => void;
 }) {
   return (
-    <Screen>
+    <Screen
+      footer={
+        <Button variant="secondary" onClick={onReshuffle}>
+          다른 퀘스트 보기
+        </Button>
+      }
+    >
       <h2 className="mb-1 text-2xl font-bold">오늘의 Odday를 골라보세요.</h2>
       <p className="mb-6 text-sm text-odday-muted">
         마음에 드는 걸 하나 고르거나, 새로 받아볼 수 있어요.
@@ -36,12 +42,6 @@ export function QuestListScreen({
             <p className="mt-1 text-sm text-odday-muted">{quest.description}</p>
           </Card>
         ))}
-      </div>
-
-      <div className="mt-6 space-y-3">
-        <Button variant="secondary" onClick={onReshuffle}>
-          다른 퀘스트 보기
-        </Button>
       </div>
     </Screen>
   );

@@ -21,7 +21,18 @@ export function HistoryScreen({
   const records = getRecords();
 
   return (
-    <Screen>
+    <Screen
+      footer={
+        <div className="space-y-3">
+          {records.length > 0 && (
+            <Button variant="secondary" onClick={onShare}>
+              기록 공유하기
+            </Button>
+          )}
+          <Button onClick={onStart}>새로운 Odday 받기</Button>
+        </div>
+      }
+    >
       <h2 className="mb-1 text-2xl font-bold">당신의 이상한 날들</h2>
       <p className="mb-6 text-sm text-odday-muted">
         Odday로 평소와 다르게 행동한 기록이에요.
@@ -52,15 +63,6 @@ export function HistoryScreen({
           ))}
         </div>
       )}
-
-      <div className="mt-8 space-y-3">
-        {records.length > 0 && (
-          <Button variant="secondary" onClick={onShare}>
-            기록 공유하기
-          </Button>
-        )}
-        <Button onClick={onStart}>새로운 Odday 받기</Button>
-      </div>
     </Screen>
   );
 }

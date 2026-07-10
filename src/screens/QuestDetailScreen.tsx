@@ -45,8 +45,28 @@ export function QuestDetailScreen({
 
   const minDuration = quest.durations[0];
 
+  const footer = skipping ? (
+    <Button variant="ghost" onClick={() => setSkipping(false)}>
+      취소
+    </Button>
+  ) : !started ? (
+    <div className="space-y-3">
+      <Button onClick={onStart}>이걸 해볼래요</Button>
+      <Button variant="ghost" onClick={() => setSkipping(true)}>
+        오늘은 이건 별로예요
+      </Button>
+    </div>
+  ) : (
+    <div className="space-y-3">
+      <p className="text-center text-sm text-odday-muted">
+        직접 해본 뒤 눌러주세요.
+      </p>
+      <Button onClick={() => onComplete()}>해봤어요</Button>
+    </div>
+  );
+
   return (
-    <Screen>
+    <Screen footer={footer}>
       <button
         onClick={onBack}
         className="mb-6 self-start text-sm text-odday-muted hover:text-white"
@@ -86,7 +106,7 @@ export function QuestDetailScreen({
         </dl>
       </Card>
 
-      {skipping ? (
+      {skipping && (
         <div className="mt-6">
           <p className="mb-3 text-sm text-odday-muted">
             이 퀘스트가 별로인 이유는?
@@ -96,33 +116,12 @@ export function QuestDetailScreen({
               <button
                 key={reason}
                 onClick={() => onSkip(reason)}
-                className="w-full rounded-xl border border-odday-border bg-odday-surface px-4 py-3 text-left text-sm hover:border-odday-accent/60"
+                className="w-full touch-manipulation rounded-xl border border-odday-border bg-odday-surface px-4 py-3 text-left text-base transition active:scale-[0.99] hover:border-odday-accent/60"
               >
                 {reason}
               </button>
             ))}
           </div>
-          <Button
-            variant="ghost"
-            className="mt-3"
-            onClick={() => setSkipping(false)}
-          >
-            취소
-          </Button>
-        </div>
-      ) : !started ? (
-        <div className="mt-auto space-y-3 pt-6">
-          <Button onClick={onStart}>이걸 해볼래요</Button>
-          <Button variant="ghost" onClick={() => setSkipping(true)}>
-            오늘은 이건 별로예요
-          </Button>
-        </div>
-      ) : (
-        <div className="mt-auto space-y-3 pt-6">
-          <p className="text-center text-sm text-odday-muted">
-            직접 해본 뒤 눌러주세요.
-          </p>
-          <Button onClick={() => onComplete()}>해봤어요</Button>
         </div>
       )}
     </Screen>

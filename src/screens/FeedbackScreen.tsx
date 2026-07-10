@@ -45,7 +45,24 @@ export function FeedbackScreen({
   const ready = causedIdx !== null && retry !== null;
 
   return (
-    <Screen>
+    <Screen
+      footer={
+        <Button
+          disabled={!ready}
+          onClick={() =>
+            ready &&
+            onSubmit({
+              wouldNotHaveDoneWithoutOdday:
+                CAUSED_OPTIONS[causedIdx!].wouldNotHaveDone,
+              retryIntent: retry!,
+              note: note.trim() || undefined,
+            })
+          }
+        >
+          기록하기
+        </Button>
+      }
+    >
       <h2 className="mb-1 text-2xl font-bold">오늘이 조금 달라졌네요.</h2>
       <p className="mb-8 text-sm text-odday-muted">두 가지만 여쭤볼게요.</p>
 
@@ -95,25 +112,8 @@ export function FeedbackScreen({
         onChange={(e) => setNote(e.target.value)}
         placeholder="어땠는지 한 줄로 남겨보세요."
         rows={2}
-        className="mb-8 w-full resize-none rounded-xl border border-odday-border bg-odday-surface px-4 py-3 text-sm outline-none focus:border-odday-accent/60"
+        className="w-full resize-none rounded-xl border border-odday-border bg-odday-surface px-4 py-3 text-base outline-none focus:border-odday-accent/60"
       />
-
-      <div className="mt-auto">
-        <Button
-          disabled={!ready}
-          onClick={() =>
-            ready &&
-            onSubmit({
-              wouldNotHaveDoneWithoutOdday:
-                CAUSED_OPTIONS[causedIdx!].wouldNotHaveDone,
-              retryIntent: retry!,
-              note: note.trim() || undefined,
-            })
-          }
-        >
-          기록하기
-        </Button>
-      </div>
     </Screen>
   );
 }

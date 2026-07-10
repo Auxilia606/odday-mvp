@@ -93,7 +93,7 @@ export default function App() {
       )}
 
       {toast && (
-        <div className="fixed inset-x-0 bottom-6 flex justify-center px-5">
+        <div className="pointer-events-none fixed inset-x-0 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-50 flex justify-center px-5">
           <div className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-lg">
             {toast}
           </div>

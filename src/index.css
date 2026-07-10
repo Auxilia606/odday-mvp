@@ -18,4 +18,26 @@ body {
   color: #f5f5f7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* 모바일: 당겨서 새로고침·바운스 스크롤 억제, 자동 폰트 확대 방지 */
+  overscroll-behavior-y: none;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  /* 회색 탭 하이라이트 제거 (직접 :active 스타일 사용) */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS에서 폰트 16px 미만 입력에 포커스하면 화면이 확대된다.
+   모든 폼 컨트롤을 최소 16px로 강제해 확대를 막는다. */
+input,
+textarea,
+select {
+  font-size: max(16px, 1em);
+}
+
+/* 스크롤 영역의 스크롤바 숨김 (모바일 앱 느낌) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

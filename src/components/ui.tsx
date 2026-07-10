@@ -2,10 +2,37 @@
 
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-export function Screen({ children }: { children: ReactNode }) {
+export function Screen({
+  children,
+  footer,
+}: {
+  children: ReactNode;
+  footer?: ReactNode;
+}) {
   return (
-    <div className="min-h-full flex flex-col items-center px-5 py-10">
-      <div className="w-full max-w-md flex-1 flex flex-col">{children}</div>
+    // 바깥: 모바일은 꽉 차게, sm 이상에서는 화면 중앙에 폰 프레임으로 배치
+    <div className="flex min-h-[100dvh] justify-center bg-odday-bg sm:items-center sm:py-8">
+      <div
+        className={[
+          "relative flex w-full max-w-md flex-col bg-odday-bg",
+          // 모바일: 뷰포트 전체 높이
+          "min-h-[100dvh]",
+          // 데스크톱: 폰 형태의 카드 (테두리·둥근 모서리·그림자, 내부 스크롤)
+          "sm:h-[calc(100dvh-4rem)] sm:max-h-[880px] sm:min-h-0 sm:overflow-hidden sm:rounded-[2.25rem] sm:border sm:border-odday-border sm:shadow-2xl sm:shadow-black/50",
+        ].join(" ")}
+      >
+        {/* 스크롤 영역: 상단 여백에 노치(safe-area) 반영 */}
+        <div className="no-scrollbar flex flex-1 flex-col overflow-y-auto px-5 pb-6 pt-[max(2.5rem,env(safe-area-inset-top))]">
+          {children}
+        </div>
+
+        {/* 고정 하단 액션 바: 홈 인디케이터(safe-area) 반영, 엄지로 닿는 위치 */}
+        {footer && (
+          <div className="border-t border-white/5 bg-odday-bg/85 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur">
+            {footer}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -19,7 +46,7 @@ export function Button({
   variant?: "primary" | "secondary" | "ghost";
 }) {
   const base =
-    "w-full rounded-2xl px-5 py-4 text-base font-semibold transition active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none";
+    "w-full select-none touch-manipulation rounded-2xl px-5 py-4 text-base font-semibold transition active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none";
   const styles: Record<string, string> = {
     primary: "bg-odday-accent text-black hover:brightness-105",
     secondary:
@@ -60,7 +87,9 @@ export function Card({
         selected
           ? "border-odday-accent bg-odday-accent/10"
           : "border-odday-border bg-odday-surface",
-        clickable ? "cursor-pointer hover:border-odday-accent/60" : "",
+        clickable
+          ? "cursor-pointer touch-manipulation hover:border-odday-accent/60 active:scale-[0.99]"
+          : "",
       ].join(" ")}
     >
       {children}
@@ -89,7 +118,7 @@ export function OptionGroup<T extends string>({
             key={opt.value}
             onClick={() => onChange(opt.value)}
             className={[
-              "rounded-xl border px-3 py-3 text-sm font-medium transition",
+              "touch-manipulation rounded-xl border px-3 py-3.5 text-sm font-medium transition active:scale-[0.97]",
               value === opt.value
                 ? "border-odday-accent bg-odday-accent/15 text-white"
                 : "border-odday-border bg-odday-surface text-odday-muted hover:text-white",

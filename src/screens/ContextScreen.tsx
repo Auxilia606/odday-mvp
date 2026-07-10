@@ -21,7 +21,19 @@ export function ContextScreen({
   const ready = place && party && duration;
 
   return (
-    <Screen>
+    <Screen
+      footer={
+        <Button
+          disabled={!ready}
+          onClick={() =>
+            ready &&
+            onSubmit({ place: place!, party: party!, duration: duration! })
+          }
+        >
+          퀘스트 받아보기
+        </Button>
+      }
+    >
       <h2 className="mb-1 text-2xl font-bold">지금 상황은 어떤가요?</h2>
       <p className="mb-8 text-sm text-odday-muted">
         딱 맞는 Odday를 골라드릴게요.
@@ -57,17 +69,6 @@ export function ContextScreen({
           { value: "20m", label: "20분" },
         ]}
       />
-
-      <div className="mt-auto pt-4">
-        <Button
-          disabled={!ready}
-          onClick={() =>
-            ready && onSubmit({ place: place!, party: party!, duration: duration! })
-          }
-        >
-          퀘스트 받아보기
-        </Button>
-      </div>
     </Screen>
   );
 }
