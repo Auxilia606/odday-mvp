@@ -29,6 +29,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # 레포 Settings → Secrets and variables → Actions 에 등록한 값 주입.
+          # 비어 있으면 PostHog 수집 없이 빌드된다. (MVP 문서 섹션 19)
+          VITE_PUBLIC_POSTHOG_KEY: ${{ secrets.VITE_PUBLIC_POSTHOG_KEY }}
+          VITE_PUBLIC_POSTHOG_HOST: ${{ secrets.VITE_PUBLIC_POSTHOG_HOST }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
