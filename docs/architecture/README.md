@@ -14,6 +14,7 @@ We use the [Feature-Sliced Design (FSD)](https://feature-sliced.design/) methodo
 | [fsd-concepts.md](./fsd-concepts.md) | FSD concepts — layers / slices / segments, dependency rules, Public API | When you first meet FSD, or when the rules feel unclear |
 | [odday-fsd-guide.md](./odday-fsd-guide.md) | How FSD is applied in this project — layer-by-layer structure mapping, folder placement, path aliases | When you're unsure where to put a new folder/file |
 | [adding-features.md](./adding-features.md) | The hands-on procedure and checklist for adding/changing features, with examples | When you actually start work |
+| [solid-principles.md](./solid-principles.md) | How the SOLID principles apply to React components here — per-principle rules, project examples, a PR checklist | When writing or reviewing a component (how it's shaped internally) |
 
 ## 30-second summary
 
