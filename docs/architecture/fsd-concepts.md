@@ -1,182 +1,182 @@
-# FSD 개념 정리
+# FSD Concepts
 
-> 이 문서는 [Feature-Sliced Design 공식 문서](https://feature-sliced.design/)를 근거로 정리한 개념 설명입니다.
-> 특정 프로젝트에 종속되지 않은 순수 개념이며, Odday에의 적용은 [odday-fsd-guide.md](./odday-fsd-guide.md)에서 다룹니다.
+> This document explains the concepts, based on the [official Feature-Sliced Design docs](https://feature-sliced.design/).
+> It covers the pure concepts, independent of any specific project; how they apply to Odday is covered in [odday-fsd-guide.md](./odday-fsd-guide.md).
 
-## 1. FSD란
+## 1. What is FSD
 
-FSD(Feature-Sliced Design)는 프론트엔드 코드를 **어떤 폴더에, 어떤 이름으로, 무엇을 근거로** 배치할지 정하는 규칙 모음입니다.
-목표는 다음과 같습니다. ([Overview](https://feature-sliced.design/docs/get-started/overview))
+FSD (Feature-Sliced Design) is a set of rules for deciding **which folder, under what name, and on what basis** to place frontend code.
+Its goals are: ([Overview](https://feature-sliced.design/docs/get-started/overview))
 
-- **큰 프로젝트의 수정 비용을 낮춘다** — 서로 얽힌 코드가 늘어나도 변경 영향 범위를 예측할 수 있게.
-- **온보딩을 쉽게 한다** — 폴더 이름만 봐도 그 코드가 무슨 책임을 지는지 알 수 있게.
-- **리팩터링을 안전하게 한다** — 한 곳을 고쳤을 때 엉뚱한 곳이 깨지지 않게.
+- **Lower the cost of changing a large project** — so that even as interdependent code grows, you can predict the blast radius of a change.
+- **Make onboarding easy** — so that the folder name alone tells you what that code is responsible for.
+- **Make refactoring safe** — so that fixing one place doesn't break something unexpected.
 
-FSD는 코드를 **3단계 계층**으로 나눕니다.
+FSD divides code into a **three-level hierarchy**.
 
 ```
-Layer(레이어)  ─▶  Slice(슬라이스)  ─▶  Segment(세그먼트)
-     책임              도메인               성격
+Layer          ─▶  Slice          ─▶  Segment
+responsibility     domain             nature
 ```
 
 ---
 
-## 2. 레이어 (Layer) — "기술적 책임"으로 나누기
+## 2. Layer — dividing by "technical responsibility"
 
-레이어는 코드를 **책임과 의존 방향**으로 나눈 최상위 폴더입니다. 총 7개이며 위에서 아래로 나열됩니다.
+Layers are the top-level folders that divide code by **responsibility and dependency direction**. There are seven, listed top to bottom.
 ([Layers](https://feature-sliced.design/docs/reference/layers))
 
-| # | 레이어 | 하는 일 | 예시 |
+| # | Layer | What it does | Examples |
 | --- | --- | --- | --- |
-| 1 | **app** | 앱 전역 설정. 라우팅, 전역 스토어, 전역 스타일, 진입점, Provider, 애널리틱스 초기화 | `App.tsx`, `main.tsx`, 전역 CSS, PostHog 초기화 |
-| 2 | ~~processes~~ | 여러 페이지에 걸친 시나리오 (**deprecated**) | — 쓰지 말고 `features`/`app`으로 분산 |
-| 3 | **pages** | 라우트에 대응하는 화면 전체. 페이지 UI, 로딩/에러 상태, 데이터 로딩 | `HomePage`, `FeedPage` |
-| 4 | **widgets** | 여러 페이지에서 재사용되는 크고 자족적인 UI 블록 | 페이지 레이아웃, 헤더+사이드바 조합 |
-| 5 | **features** | 사용자가 수행하는 **재사용되는 상호작용**. 폼, 검증, 관련 API 호출, 내부 상태 | `LoginForm`, `AddToCart` |
-| 6 | **entities** | 프로젝트가 다루는 **비즈니스 개념(명사)**. 데이터 모델, 스키마, 엔티티 API, 표현용 UI | `User`, `Product`, `Post` |
-| 7 | **shared** | 프로젝트에 종속되지 않는 재사용 기반. UI 키트, API 클라이언트, 유틸, 상수 | `Button`, `apiClient`, `formatDate` |
+| 1 | **app** | App-wide setup: routing, global store, global styles, entry point, providers, analytics init | `App.tsx`, `main.tsx`, global CSS, PostHog init |
+| 2 | ~~processes~~ | Scenarios spanning multiple pages (**deprecated**) | — don't use; distribute into `features`/`app` |
+| 3 | **pages** | Whole screens corresponding to routes: page UI, loading/error states, data loading | `HomePage`, `FeedPage` |
+| 4 | **widgets** | Large, self-contained UI blocks reused across pages | page layout, header+sidebar combination |
+| 5 | **features** | **Reusable interactions** a user performs: forms, validation, related API calls, internal state | `LoginForm`, `AddToCart` |
+| 6 | **entities** | **Business concepts (nouns)** the project deals with: data models, schemas, entity APIs, presentation UI | `User`, `Product`, `Post` |
+| 7 | **shared** | Reusable foundation not tied to the project: UI kit, API client, utils, constants | `Button`, `apiClient`, `formatDate` |
 
-### 핵심 규칙: 의존성은 아래로만
+### Core rule: dependencies flow downward only
 
-> **"한 슬라이스의 파일은, 자기보다 엄격히 아래에 있는 레이어의 슬라이스만 import할 수 있다."**
+> **"A file in a slice may only import from slices in layers strictly below its own."**
 > — [Layers](https://feature-sliced.design/docs/reference/layers)
 
 ```
-app       ─┐  (가장 위: 아무나 못 가져다 쓰지만, 아래를 다 쓸 수 있음)
-pages      │  ▼  import 가능한 방향
+app       ─┐  (topmost: nobody can import it, but it can use everything below)
+pages      │  ▼  allowed import direction
 widgets    │
 features   │
 entities   │
-shared    ─┘  (가장 아래: 아무도 위를 못 씀. 하지만 모두가 shared를 씀)
+shared    ─┘  (bottommost: nobody's above it can be used by it, but everyone uses shared)
 ```
 
-- `pages`는 `widgets`, `features`, `entities`, `shared`를 쓸 수 있다.
-- `features`는 `entities`, `shared`만 쓸 수 있다. (`pages`나 다른 `features`는 ✗)
-- `shared`는 아무 레이어도 import하지 않는다. (앱 전체의 토대)
+- `pages` may use `widgets`, `features`, `entities`, `shared`.
+- `features` may use only `entities`, `shared`. (`pages` or other `features` ✗)
+- `shared` imports from no layer at all. (It's the foundation of the whole app.)
 
-**예외 두 가지:**
-- `app`과 `shared`는 슬라이스로 나누지 않으며, 내부 세그먼트끼리는 자유롭게 import할 수 있습니다.
+**Two exceptions:**
+- `app` and `shared` are not divided into slices, and their internal segments may import each other freely.
 
-### "모든 게 feature일 필요는 없다"
+### "Not everything needs to be a feature"
 
-FSD는 과도한 분할을 경계합니다. **재사용되는 상호작용만 `features`로** 만드세요.
-한 페이지에서만 쓰는 UI 블록은 그냥 그 `pages` 슬라이스 안에 두면 됩니다. ([Layers](https://feature-sliced.design/docs/reference/layers))
-
----
-
-## 3. 슬라이스 (Slice) — "비즈니스 도메인"으로 나누기
-
-슬라이스는 레이어 안에서 **비즈니스 의미**로 코드를 묶은 폴더입니다.
-이름은 도메인에서 나옵니다 — 사진 앱이라면 `photo`, `effects`, `gallery`; SNS라면 `post`, `comments`, `news-feed`.
-([Slices and segments](https://feature-sliced.design/docs/reference/slices-segments))
-
-- 슬라이스는 `pages`, `widgets`, `features`, `entities` 레이어에만 존재합니다.
-- `app`과 `shared`에는 슬라이스가 없습니다. (앱 전역 설정과 토대 코드라 도메인 분할이 무의미)
-
-### 두 가지 이상: 낮은 결합, 높은 응집
-
-- **Zero coupling (제로 결합)** — 같은 레이어의 다른 슬라이스끼리 서로 참조하지 않는다.
-- **High cohesion (높은 응집)** — 한 슬라이스는 자기 목적에 관련된 코드를 대부분 담는다.
-
-같은 레이어 내 슬라이스 간 직접 import가 금지되어 있어 순환 의존을 원천 차단합니다.
-슬라이스 A와 B가 서로 필요하면 → 둘 다 **아래 레이어(예: entities, shared)**로 공통 부분을 내려서 공유합니다.
+FSD guards against over-splitting. Make something a `feature` **only if it's a reusable interaction**.
+A UI block used on just one page can simply live inside that `pages` slice. ([Layers](https://feature-sliced.design/docs/reference/layers))
 
 ---
 
-## 4. 세그먼트 (Segment) — "코드의 성격"으로 나누기
+## 3. Slice — dividing by "business domain"
 
-세그먼트는 슬라이스 안에서 코드를 **기술적 성격**으로 나눈 하위 폴더입니다. 표준 이름은 다음과 같습니다.
+A slice is a folder that groups code within a layer by **business meaning**.
+Names come from the domain — for a photo app: `photo`, `effects`, `gallery`; for a social network: `post`, `comments`, `news-feed`.
 ([Slices and segments](https://feature-sliced.design/docs/reference/slices-segments))
 
-| 세그먼트 | 담는 것 |
+- Slices exist only in the `pages`, `widgets`, `features`, and `entities` layers.
+- `app` and `shared` have no slices. (They're app-wide setup and foundation code, so domain splitting is meaningless.)
+
+### Two ideals: low coupling, high cohesion
+
+- **Zero coupling** — different slices within the same layer don't reference each other.
+- **High cohesion** — a slice holds most of the code related to its own purpose.
+
+Because direct imports between slices in the same layer are forbidden, circular dependencies are blocked at the source.
+If slices A and B both need each other → move the shared part down to a lower layer (e.g. entities, shared) and share it there.
+
+---
+
+## 4. Segment — dividing by "nature of the code"
+
+A segment is a subfolder that divides code within a slice by **technical nature**. The standard names are:
+([Slices and segments](https://feature-sliced.design/docs/reference/slices-segments))
+
+| Segment | What it holds |
 | --- | --- |
-| `ui` | UI 컴포넌트, 포맷터, 스타일 |
-| `api` | 백엔드 요청, 요청/응답 타입, 매퍼 |
-| `model` | 스키마, 인터페이스, 스토어(상태), 비즈니스 로직 |
-| `lib` | 이 슬라이스 내부에서만 쓰는 유틸 |
-| `config` | 설정값, 기능 플래그 |
+| `ui` | UI components, formatters, styles |
+| `api` | Backend requests, request/response types, mappers |
+| `model` | Schemas, interfaces, stores (state), business logic |
+| `lib` | Utilities used only inside this slice |
+| `config` | Config values, feature flags |
 
-> 커스텀 세그먼트를 만들어도 되지만, **성격(essence)이 아니라 목적(purpose)을 담아** 이름 짓습니다.
-> `components`, `hooks` 같은 "무엇인가"가 아니라 "무엇을 위한 것인가"로 나누세요.
+> You may create custom segments, but name them by **purpose, not essence**.
+> Divide by "what it's for," not "what it is" — avoid names like `components` or `hooks`.
 
-작은 슬라이스라면 세그먼트를 다 만들 필요 없이 `ui`, `model` 정도만 있어도 됩니다.
+For a small slice you don't need every segment; `ui` and `model` alone may be enough.
 
 ---
 
 ## 5. Public API — `index.ts`
 
-슬라이스는 **자기 내부 파일을 외부에 직접 노출하지 않습니다.** 대신 `index.ts`로 "공개할 것만" 내보냅니다.
-이 `index.ts`가 슬라이스의 **계약(contract)** 이자 **관문(gate)** 입니다. ([Public API](https://feature-sliced.design/docs/reference/public-api))
+A slice **does not expose its internal files directly to the outside.** Instead, `index.ts` exports "only what's public."
+This `index.ts` is the slice's **contract** and **gate**. ([Public API](https://feature-sliced.design/docs/reference/public-api))
 
-Public API의 목적:
-1. **구조 보호** — 내부 파일을 리팩터링해도 바깥 코드가 안 깨진다.
-2. **동작 명확성** — 의미 있는 동작 변경은 API 변경으로 드러난다.
-3. **최소 노출** — 꼭 필요한 것만 공개한다.
+Purposes of the Public API:
+1. **Structure protection** — refactoring internal files won't break outside code.
+2. **Behavior clarity** — a meaningful behavior change shows up as an API change.
+3. **Minimal exposure** — expose only what's necessary.
 
 ```ts
-// ❌ 나쁨: 와일드카드 재노출 — 내부 구현이 다 새어나감
+// ❌ Bad: wildcard re-export — the whole internal implementation leaks
 export * from "./ui/Comment";
 export * from "./model/comments";
 
-// ✅ 좋음: 필요한 것만 명시적으로
+// ✅ Good: only what's needed, explicitly
 export { LoginPage } from "./ui/LoginPage";
 export { RegisterPage } from "./ui/RegisterPage";
 ```
 
-### 같은 슬라이스 안에서는 index를 거치지 않는다
+### Within the same slice, don't go through index
 
-순환 import를 피하려고, **같은 슬라이스 내부 파일끼리는 상대경로로 직접** 가져옵니다.
+To avoid circular imports, **files within the same slice import each other directly via relative paths.**
 
 ```ts
-// ❌ pages/home/ui/HomePage.tsx 안에서
-import { loadUserStatistics } from "../";        // 자기 슬라이스 index → 순환 위험
+// ❌ inside pages/home/ui/HomePage.tsx
+import { loadUserStatistics } from "../";        // own slice index → circular risk
 
-// ✅ 직접 상대경로로
+// ✅ directly via relative path
 import { loadUserStatistics } from "../api/loadUserStatistics";
 ```
 
-### `shared/ui`, `shared/lib`는 컴포넌트별 index로
+### `shared/ui` and `shared/lib` use per-component index files
 
-한 덩어리 index로 다 내보내면 트리셰이킹이 안 돼 번들이 커집니다.
-`shared/ui`, `shared/lib`는 **컴포넌트/유틸마다 개별 index**를 두는 것을 권장합니다. ([Public API](https://feature-sliced.design/docs/reference/public-api))
+Exporting everything through one big index breaks tree-shaking and bloats the bundle.
+For `shared/ui` and `shared/lib`, prefer a **separate index per component/util**. ([Public API](https://feature-sliced.design/docs/reference/public-api))
 
 ---
 
-## 6. 엔티티 간 교차 참조 — `@x` 표기
+## 6. Cross-imports between entities — the `@x` notation
 
-엔티티끼리 서로 참조해야 할 때가 있습니다(예: `entities/A`가 `entities/B`의 타입을 필요로 함).
-같은 레이어 간 직접 import는 금지지만, **entities 레이어에 한해** `@x` 표기로 명시적 교차 참조를 허용합니다.
+Sometimes entities need to reference each other (e.g. `entities/A` needs a type from `entities/B`).
+Direct imports between same-layer slices are forbidden, but **for the entities layer only**, the `@x` notation allows explicit cross-imports.
 ([Public API](https://feature-sliced.design/docs/reference/public-api))
 
 ```
 entities/A/
   @x/
-    B.ts        ← entities/B를 위해 A가 공개하는 전용 Public API
-  index.ts      ← 일반 Public API
+    B.ts        ← the dedicated Public API A exposes for entities/B
+  index.ts      ← the general Public API
 ```
 
 ```ts
-// entities/B 안에서
+// inside entities/B
 import type { EntityA } from "entities/A/@x/B";
 ```
 
-> 교차 참조는 **최소한으로**, 그리고 **entities 레이어에서만** 사용하세요.
+> Use cross-imports **as little as possible**, and **only in the entities layer**.
 
 ---
 
-## 7. 자동 검사 — Steiger
+## 7. Automated checking — Steiger
 
-FSD 규칙(의존성 방향, Public API 등)은 사람이 매번 검토하기 어렵습니다.
-[Steiger](https://github.com/feature-sliced/steiger) 아키텍처 린터로 규칙 위반을 자동 검출할 수 있습니다.
-도입은 [odday-fsd-guide.md](./odday-fsd-guide.md)의 "도구" 항목을 참고하세요.
+FSD rules (dependency direction, Public API, etc.) are hard for a human to review every time.
+The [Steiger](https://github.com/feature-sliced/steiger) architecture linter can detect rule violations automatically.
+For adoption, see the "Tools" section of [odday-fsd-guide.md](./odday-fsd-guide.md).
 
 ---
 
-## 요약 체크리스트
+## Summary checklist
 
-- [ ] 새 코드가 어느 **레이어**에 속하는가? (app/pages/widgets/features/entities/shared)
-- [ ] 그 레이어 안 어느 **슬라이스(도메인)** 인가?
-- [ ] 슬라이스 안 어느 **세그먼트(ui/model/api/lib/config)** 인가?
-- [ ] import가 **아래 레이어 방향**으로만 흐르는가?
-- [ ] 같은 레이어의 다른 슬라이스를 직접 참조하고 있지 않은가?
-- [ ] 슬라이스 바깥에서 **`index.ts`(Public API)** 로만 접근하는가?
+- [ ] Which **layer** does the new code belong to? (app/pages/widgets/features/entities/shared)
+- [ ] Which **slice (domain)** within that layer?
+- [ ] Which **segment (ui/model/api/lib/config)** within that slice?
+- [ ] Do imports flow **only toward lower layers**?
+- [ ] Are you avoiding direct references to other slices in the same layer?
+- [ ] From outside a slice, do you access it only through its **`index.ts` (Public API)**?

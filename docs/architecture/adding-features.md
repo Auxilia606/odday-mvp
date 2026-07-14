@@ -1,124 +1,124 @@
-# 기능 추가·수정 실무 가이드
+# Practical Guide to Adding / Changing Features
 
-> 화면이나 기능을 만들기 전에 이 문서를 봅니다.
-> 개념은 [fsd-concepts.md](./fsd-concepts.md), 폴더 매핑은 [odday-fsd-guide.md](./odday-fsd-guide.md).
+> Read this document before building a screen or feature.
+> For concepts see [fsd-concepts.md](./fsd-concepts.md); for folder mapping see [odday-fsd-guide.md](./odday-fsd-guide.md).
 
-## 시작 전: 3가지 질문
+## Before you start: 3 questions
 
-새 코드를 짜기 전에 스스로 답합니다.
+Answer these to yourself before writing new code.
 
-1. **어느 레이어인가?** — 새 화면? → `pages`. 재사용되는 상호작용? → `features`. 비즈니스 개념(명사)? → `entities`. 도메인 무관 유틸/UI? → `shared`.
-2. **어느 슬라이스(도메인)인가?** — 예: 퀘스트 공유 → `share-odday`, 퀘스트 개념 → `quest`.
-3. **어느 세그먼트인가?** — 화면/컴포넌트 → `ui`, 상태/타입/로직 → `model`, 외부 요청 → `api`, 내부 유틸 → `lib`, 설정 → `config`.
+1. **Which layer?** — A new screen? → `pages`. A reusable interaction? → `features`. A business concept (a noun)? → `entities`. A domain-agnostic util/UI? → `shared`.
+2. **Which slice (domain)?** — e.g. sharing a quest → `share-odday`, the quest concept → `quest`.
+3. **Which segment?** — screen/component → `ui`, state/types/logic → `model`, external requests → `api`, internal utils → `lib`, config → `config`.
 
-그 다음 import 방향(위→아래)과 Public API(`index.ts`)만 지키면 됩니다.
+After that, just respect the import direction (top → bottom) and the Public API (`index.ts`).
 
-## 레이어 결정 플로우차트
+## Layer decision flowchart
 
 ```
-새로 만들 것이…
+What you're about to build is…
 │
-├─ 라우트/스텝에 대응하는 화면 전체?        → pages/<화면>/ui
+├─ A whole screen corresponding to a route/step?      → pages/<screen>/ui
 │
-├─ 사용자가 하는 동작인데 여러 화면에서 재사용? → features/<동작>
-│   (한 화면에서만 쓰면 그 pages 슬라이스 안에 둔다)
+├─ A user action reused across several screens?        → features/<action>
+│   (if used on only one screen, keep it inside that pages slice)
 │
-├─ 우리가 다루는 "명사"(데이터 개념)?         → entities/<개념>
+├─ A "noun" (data concept) we deal with?               → entities/<concept>
 │
-├─ 여러 페이지에 걸친 큰 UI 블록?            → widgets/<블록>
+├─ A large UI block spanning several pages?            → widgets/<block>
 │
-└─ 도메인과 무관한 UI/유틸/상수/외부 어댑터?   → shared/{ui,lib,api,config}
+└─ A domain-agnostic UI/util/constant/external adapter? → shared/{ui,lib,api,config}
 ```
 
 ---
 
-## 시나리오별 절차
+## Procedures by scenario
 
-### A. 새 화면(스텝) 추가
+### A. Adding a new screen (step)
 
-예: "오늘의 요약" 화면을 추가한다.
+Example: add a "Today's summary" screen.
 
-1. `src/pages/summary/` 폴더 생성.
-2. `pages/summary/ui/SummaryScreen.tsx`에 화면 컴포넌트 작성.
-3. `pages/summary/index.ts`에 Public API 노출:
+1. Create the `src/pages/summary/` folder.
+2. Write the screen component in `pages/summary/ui/SummaryScreen.tsx`.
+3. Expose the Public API in `pages/summary/index.ts`:
    ```ts
    export { SummaryScreen } from "./ui/SummaryScreen";
    ```
-4. `app/flow/useOddayFlow.ts`의 `Step` 유니온에 `"summary"` 추가하고 전환 로직 연결.
-5. `app/App.tsx`에서 `flow.step === "summary"` 분기에 `<SummaryScreen />` 렌더.
-6. 화면에서 필요한 데이터는 **아래 레이어**에서만 가져온다:
+4. Add `"summary"` to the `Step` union in `app/flow/useOddayFlow.ts` and wire up the transition logic.
+5. Render `<SummaryScreen />` in the `flow.step === "summary"` branch in `app/App.tsx`.
+6. Pull the data the screen needs **only from lower layers**:
    ```ts
-   import { pickQuests } from "@/entities/quest";   // ✓ entities는 pages보다 아래
+   import { pickQuests } from "@/entities/quest";   // ✓ entities is below pages
    import { Button } from "@/shared/ui/Button";      // ✓ shared
    ```
 
-### B. 새 상호작용(feature) 추가
+### B. Adding a new interaction (feature)
 
-예: "퀘스트 즐겨찾기" 기능. 목록·상세 여러 화면에서 재사용된다.
+Example: a "bookmark quest" feature, reused across the list and detail screens.
 
-1. `src/features/bookmark-quest/` 생성.
-2. 세그먼트 배치:
-   - `model/useBookmark.ts` — 상태/로직
-   - `ui/BookmarkButton.tsx` — 버튼 UI
+1. Create `src/features/bookmark-quest/`.
+2. Lay out the segments:
+   - `model/useBookmark.ts` — state/logic
+   - `ui/BookmarkButton.tsx` — the button UI
 3. `features/bookmark-quest/index.ts`:
    ```ts
    export { BookmarkButton } from "./ui/BookmarkButton";
    export { useBookmark } from "./model/useBookmark";
    ```
-4. 퀘스트 개념이 필요하면 `entities/quest`에서 가져온다. **다른 feature는 import하지 않는다.**
-5. 화면(`pages`)에서 `import { BookmarkButton } from "@/features/bookmark-quest"`로 사용.
+4. If you need the quest concept, pull it from `entities/quest`. **Do not import other features.**
+5. Use it from a screen (`pages`) via `import { BookmarkButton } from "@/features/bookmark-quest"`.
 
-> ⚠️ 처음부터 feature로 만들지 마세요. **한 화면에서만 쓴다면** 그냥 그 `pages` 슬라이스 안에 두고,
-> 두 번째 화면에서 필요해질 때 `features`로 승격합니다.
+> ⚠️ Don't build it as a feature from the start. **If it's used on only one screen**, keep it inside that `pages` slice,
+> and promote it to `features` when a second screen needs it.
 
-### C. 새 데이터 개념(entity) 추가
+### C. Adding a new data concept (entity)
 
-예: "뱃지(badge)" 개념 도입.
+Example: introducing a "badge" concept.
 
-1. `src/entities/badge/` 생성.
-2. `model/badge.ts` — 타입/스키마, `model/dataset.ts` — 데이터, 필요하면 `api/` — 서버 요청.
-3. `entities/badge/index.ts`에서 타입·조회 함수만 명시적으로 노출.
-4. 다른 엔티티(`quest` 등)를 꼭 참조해야 하면 **`@x` 표기**만 사용(직접 import 금지):
+1. Create `src/entities/badge/`.
+2. `model/badge.ts` — types/schemas, `model/dataset.ts` — data, and if needed `api/` — server requests.
+3. Expose only the types and query functions explicitly from `entities/badge/index.ts`.
+4. If you must reference another entity (`quest`, etc.), use the **`@x` notation only** (no direct import):
    ```ts
    import type { Quest } from "@/entities/quest/@x/badge";
    ```
 
-### D. 기존 화면 수정
+### D. Changing an existing screen
 
-1. 해당 화면의 `pages/<slice>/` 폴더만 연다.
-2. 화면 안에서만 쓰는 UI는 같은 슬라이스 `ui/`에 파일 추가(다른 곳에 두지 않는다).
-3. 로직이 다른 화면과 겹치기 시작하면 → `features` 또는 `entities`로 내려 공유한다(복붙 → 승격).
+1. Open only that screen's `pages/<slice>/` folder.
+2. UI used only within that screen goes into the same slice's `ui/` (don't put it elsewhere).
+3. When the logic starts overlapping with other screens → move it down to `features` or `entities` to share it (duplicate first → then promote).
 
-### E. 공용 UI/유틸 추가
+### E. Adding shared UI/utils
 
-- 버튼·모달처럼 도메인 무관 UI → `shared/ui/<Component>/`, 컴포넌트별 `index.ts`.
-- 날짜 포맷 같은 순수 유틸 → `shared/lib/<name>/`.
-- PostHog 같은 외부 서비스 어댑터 → `shared/api/`.
-- `shared`에는 **quest/record 같은 도메인 지식을 절대 넣지 않는다.**
-
----
-
-## 커밋 전 체크리스트
-
-- [ ] 새 파일이 올바른 **레이어/슬라이스/세그먼트**에 있는가?
-- [ ] import가 **아래 레이어 방향**으로만 흐르는가? (`features`→`pages` 참조 없음)
-- [ ] **같은 레이어의 다른 슬라이스**를 직접 import하지 않았는가?
-- [ ] 슬라이스는 **`index.ts`(Public API)** 로만 외부에 노출되는가?
-- [ ] 같은 슬라이스 내부는 **상대경로**로, 바깥은 **별칭+index**로 import했는가?
-- [ ] 한 화면에서만 쓰는 코드를 성급하게 `features`로 빼지 않았는가?
-- [ ] `npm run typecheck` 통과하는가?
+- Domain-agnostic UI like buttons/modals → `shared/ui/<Component>/`, with a per-component `index.ts`.
+- Pure utils like date formatting → `shared/lib/<name>/`.
+- External-service adapters like PostHog → `shared/api/`.
+- **Never put domain knowledge (quest/record, etc.) into `shared`.**
 
 ---
 
-## import 규칙 빠른 참조
+## Pre-commit checklist
 
-| 이 레이어에서 | import 할 수 있는 것 |
+- [ ] Is the new file in the correct **layer/slice/segment**?
+- [ ] Do imports flow **only toward lower layers**? (no `features`→`pages` reference)
+- [ ] Did you avoid importing **another slice in the same layer** directly?
+- [ ] Is the slice exposed to the outside only through its **`index.ts` (Public API)**?
+- [ ] Within the same slice, did you import via **relative paths**, and from outside via **alias + index**?
+- [ ] Did you avoid prematurely extracting single-screen code into `features`?
+- [ ] Does `npm run typecheck` pass?
+
+---
+
+## Quick reference: import rules
+
+| From this layer | You may import |
 | --- | --- |
-| `app` | pages, widgets, features, entities, shared (전부) |
+| `app` | pages, widgets, features, entities, shared (everything) |
 | `pages` | widgets, features, entities, shared |
 | `widgets` | features, entities, shared |
 | `features` | entities, shared |
-| `entities` | shared (+ 같은 레이어는 `@x` 표기로만) |
-| `shared` | (없음 — 아무 레이어도 import하지 않음) |
+| `entities` | shared (+ same layer only via the `@x` notation) |
+| `shared` | (nothing — imports no layer) |
 
-이 표를 어기면 순환 의존이나 예측 불가능한 변경 전파가 생깁니다. 규칙이 곧 안전장치입니다.
+Breaking this table creates circular dependencies or unpredictable change propagation. The rules are the safety net.

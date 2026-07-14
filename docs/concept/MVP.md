@@ -1,22 +1,25 @@
-# Odday MVP 기획 및 검증 문서
+# Odday MVP — Planning & Validation Document
 
-## 1. 프로젝트 개요
+> Note: Odday is a Korean-facing product. Explanatory prose here is in English, but literal product content —
+> quest text, on-screen UI copy, and taglines — is kept in Korean, since those are the actual strings shipped to users.
 
-**Odday**는 사용자가 평소라면 하지 않았을 작은 행동을 실제 생활에서 수행하도록 유도하는 현실 퀘스트 서비스다.
+## 1. Project overview
 
-이름은 `Odd + Day`의 조합으로, 평범한 하루를 조금 이상하고 기억에 남는 하루로 만든다는 의미를 담고 있다.
+**Odday** is a real-world quest service that nudges users into performing small actions they wouldn't normally do in everyday life.
 
-### 브랜드 메시지
+The name combines `Odd + Day` — the idea of turning an ordinary day into one that's a little odd and a little more memorable.
+
+### Brand message
 
 > 오늘을 조금 이상하게.
 
-### 영문 태그라인
+### English tagline
 
 > Make today a little odd.
 
-Odday는 사용자에게 거창한 목표나 자기계발 과제를 요구하지 않는다.
+Odday doesn't ask users for grand goals or self-improvement assignments.
 
-대신 다음처럼 부담이 적고 약간 낯선 행동을 제안한다.
+Instead it proposes low-effort, slightly unfamiliar actions like these:
 
 - 평소 가지 않던 길로 10분간 걸어보기
 - 주변에서 가장 오래돼 보이는 물건 찾기
@@ -25,133 +28,133 @@ Odday는 사용자에게 거창한 목표나 자기계발 과제를 요구하지
 - 오늘 가장 이상한 간판 사진 찍기
 - 오랫동안 연락하지 않은 사람 한 명 떠올려보기
 
-Odday의 목적은 단순한 할 일 관리나 습관 형성이 아니다.
+Odday's purpose is not simple to-do management or habit formation.
 
-핵심 목적은 다음과 같다.
+Its core purpose is:
 
-> 사용자의 반복되는 일상에 작은 사건을 발생시키고, 평소라면 하지 않았을 행동을 유도한다.
-
----
-
-## 2. 서비스 한 줄 정의
-
-> Odday는 평범한 하루에 작은 현실 퀘스트를 제안해, 사용자가 평소와 다른 행동을 하도록 만드는 서비스다.
-
-조금 더 감성적으로 표현하면 다음과 같다.
-
-> 아무 일 없이 지나갈 하루에 작은 사건 하나를 만든다.
+> To create a small event in the user's repetitive daily routine, and to prompt an action they wouldn't otherwise have taken.
 
 ---
 
-## 3. MVP의 목적
+## 2. One-line service definition
 
-Odday MVP의 가장 중요한 목적은 서비스를 완성하는 것이 아니다.
+> Odday proposes a small real-world quest for an ordinary day, making users act differently than they usually would.
 
-현실 퀘스트라는 개념이 실제 사용자 행동을 만들어낼 수 있는지 검증하는 것이 목적이다.
+Put a bit more emotionally:
 
-검증하려는 핵심 질문은 다음과 같다.
-
-1. 사용자가 Odday에 방문한 후 퀘스트를 확인하는가?
-2. 제시된 퀘스트 중 하나를 실제로 선택하는가?
-3. 선택한 퀘스트를 현실에서 수행하는가?
-4. Odday가 없었다면 하지 않았을 행동을 하게 되는가?
-5. 한 번 수행한 뒤 다른 퀘스트도 다시 요청하는가?
-6. 며칠 뒤 Odday에 다시 방문하는가?
-7. 다른 사람에게 퀘스트나 결과를 공유하는가?
-8. 어떤 유형의 퀘스트에서 반응이 가장 좋은가?
-
-따라서 Odday MVP의 목적은 많은 익명 데이터를 수집하는 것 자체가 아니다.
-
-데이터 수집은 다음 가설을 판단하기 위한 수단이다.
-
-> 사용자가 Odday의 퀘스트를 흥미롭게 느끼고, 실제 행동으로 옮기며, 반복해서 사용할 가치가 있다고 느끼는가?
+> It creates one small event in a day that would otherwise pass by uneventfully.
 
 ---
 
-## 4. 핵심 제품 가설
+## 3. Purpose of the MVP
 
-### 가설 1. 사용자는 반복되는 일상에 변화를 만들고 싶어 한다
+The most important purpose of the Odday MVP is not to finish building the service.
 
-사용자는 여행이나 특별한 이벤트까지는 아니더라도, 평범한 하루가 완전히 무의미하게 지나가는 것은 원하지 않는다.
+The purpose is to validate whether the concept of a real-world quest can actually produce user behavior.
 
-Odday는 작은 행동을 제안해 낮은 비용으로 일상에 변화를 만든다.
+The core questions we want to validate are:
+
+1. After visiting Odday, does the user check the quests?
+2. Do they actually select one of the presented quests?
+3. Do they perform the selected quest in real life?
+4. Do they take an action they wouldn't have taken without Odday?
+5. After doing one, do they request another quest?
+6. Do they revisit Odday a few days later?
+7. Do they share a quest or result with someone else?
+8. Which type of quest gets the best response?
+
+So the purpose of the Odday MVP is not to collect a large amount of anonymous data for its own sake.
+
+Data collection is a means to judge the following hypothesis:
+
+> Do users find Odday's quests interesting, act on them in reality, and feel they're worth using repeatedly?
 
 ---
 
-### 가설 2. 추상적인 추천보다 구체적인 행동 제안이 실행 가능성이 높다
+## 4. Core product hypotheses
 
-다음과 같은 문장은 행동으로 이어지기 어렵다.
+### Hypothesis 1. Users want to create change in their repetitive routine
+
+Users may not want a full trip or special event, but they also don't want an ordinary day to pass completely meaninglessly.
+
+Odday proposes a small action, creating change in daily life at low cost.
+
+---
+
+### Hypothesis 2. A concrete action proposal is more actionable than an abstract recommendation
+
+Sentences like the following rarely lead to action:
 
 > 오늘은 새로운 경험을 해보세요.
 
-Odday는 이를 구체적인 행동으로 바꾼다.
+Odday turns this into a concrete action:
 
 > 평소 가던 길과 반대 방향으로 5분만 걸어보세요.
 
-사용자는 무엇을 해야 하는지 고민하지 않고 바로 행동할 수 있다.
+The user can act immediately without agonizing over what to do.
 
 ---
 
-### 가설 3. 퀘스트가 없었다면 하지 않았을 행동이 발생한다
+### Hypothesis 3. Actions occur that wouldn't have happened without the quest
 
-Odday의 핵심 가치는 사용자가 퀘스트를 재미있다고 평가하는 데 있지 않다.
+Odday's core value is not in users rating a quest as fun.
 
-다음 행동이 발생해야 한다.
+The following behavior must occur:
 
-> 원래는 하지 않았을 행동을 Odday 때문에 실제로 하게 된다.
+> Because of Odday, the user actually does something they wouldn't otherwise have done.
 
-이를 Odday의 핵심 성과로 정의한다.
-
----
-
-### 가설 4. 행동 결과가 기록되면 반복 사용 가능성이 높아진다
-
-퀘스트를 한 번 수행하는 것만으로는 Odday가 일회성 서비스가 될 수 있다.
-
-수행 결과가 쌓여 다음과 같은 기록이 되면 장기적인 가치가 생길 수 있다.
-
-- 이번 달 처음 방문한 장소
-- 평소와 다르게 행동한 횟수
-- 가장 만족도가 높았던 퀘스트
-- 가장 예상 밖이었던 경험
-- Odday가 아니었다면 하지 않았을 행동
-- 사용자의 퀘스트 성향
+We define this as Odday's core outcome.
 
 ---
 
-## 5. MVP 배포 방식
+### Hypothesis 4. Recording the results of actions increases the likelihood of repeat use
 
-Odday MVP는 정적 웹 애플리케이션으로 개발하고 GitHub Pages를 통해 배포한다.
+Performing a quest just once risks Odday becoming a one-time service.
 
-배포된 서비스는 다음 경로를 통해 외부에 노출한다.
+If performance results accumulate into records like the following, long-term value can emerge:
 
-- GitHub Repository
+- The first place visited this month
+- The number of times acting differently than usual
+- The quest with the highest satisfaction
+- The most unexpected experience
+- Actions that wouldn't have happened without Odday
+- The user's quest tendencies
+
+---
+
+## 5. MVP deployment method
+
+The Odday MVP is developed as a static web application and deployed via GitHub Pages.
+
+The deployed service is exposed externally through these channels:
+
+- GitHub repository
 - GitHub Pages
-- LinkedIn 프로필
-- LinkedIn 게시물
-- 개인 포트폴리오
-- 지인 공유
-- 관심 분야 커뮤니티
+- LinkedIn profile
+- LinkedIn posts
+- Personal portfolio
+- Sharing with acquaintances
+- Interest-area communities
 
-GitHub Pages를 사용하는 이유는 다음과 같다.
+Reasons for using GitHub Pages:
 
-- 별도의 서버 운영 비용이 거의 없다.
-- 빠르게 수정하고 재배포할 수 있다.
-- GitHub 프로젝트와 실제 서비스를 직접 연결할 수 있다.
-- 포트폴리오 프로젝트로 활용할 수 있다.
-- 초기 행동 검증에 필요한 수준의 웹 애플리케이션을 충분히 제공할 수 있다.
+- Almost no separate server operating cost.
+- Fast to fix and redeploy.
+- Directly links the GitHub project to the live service.
+- Usable as a portfolio project.
+- Provides a web app sufficient for early behavior validation.
 
 ---
 
-## 6. GitHub 프로젝트 구성
+## 6. GitHub project setup
 
-### Repository 이름
+### Repository name
 
 ```text
 odday
 ```
 
-상황에 따라 다음 이름도 사용할 수 있다.
+Depending on the situation, these names may also be used:
 
 ```text
 odday-app
@@ -159,27 +162,27 @@ odday-web
 odday-mvp
 ```
 
-가장 단순한 `odday`를 우선 사용한다.
+Prefer the simplest, `odday`.
 
-### GitHub Pages 주소 예시
+### GitHub Pages address example
 
 ```text
 https://{username}.github.io/odday/
 ```
 
-### 페이지 제목
+### Page title
 
 ```text
 Odday
 ```
 
-### 기본 설명
+### Default description
 
 ```text
 Make today a little odd.
 ```
 
-또는 한국어로 다음 문구를 사용할 수 있다.
+Or in Korean:
 
 ```text
 오늘을 조금 이상하게.
@@ -187,90 +190,90 @@ Make today a little odd.
 
 ---
 
-## 7. LinkedIn 연결의 목적
+## 7. Purpose of the LinkedIn connection
 
-LinkedIn 연결은 두 가지 목적을 가진다.
+The LinkedIn connection serves two purposes.
 
-### 7.1 초기 사용자 유입
+### 7.1 Early user acquisition
 
-LinkedIn 프로필이나 게시물을 통해 초기 방문자를 확보한다.
+Acquire early visitors through the LinkedIn profile or posts.
 
-이를 통해 다음 항목을 확인할 수 있다.
+Through this we can check:
 
-- Odday라는 이름과 메시지가 이해되는가
-- 첫 화면에서 사용자가 행동을 시작하는가
-- 퀘스트 선택 과정이 자연스러운가
-- 실제 완료까지 이어지는가
-- 완료 후 다음 퀘스트를 요청하는가
-
----
-
-### 7.2 포트폴리오 활용
-
-Odday는 단순한 UI 구현 프로젝트가 아니라 다음 내용을 보여주는 포트폴리오로 활용할 수 있다.
-
-- 제품 아이디어 구체화
-- 핵심 가설 정의
-- MVP 범위 설정
-- 사용자 행동 퍼널 설계
-- 이벤트 기반 데이터 수집
-- 익명 사용자 분석
-- 실험 결과에 따른 제품 개선
-- 실제 서비스 배포 및 운영
-
-다만 LinkedIn 유입 사용자는 일반 사용자와 다를 가능성이 높다.
-
-LinkedIn 방문자는 다음 특성을 가질 수 있다.
-
-- 개발자 또는 직장인 비중이 높음
-- 프로젝트 구현 자체에 관심이 있음
-- 서비스보다 포트폴리오 관점에서 접근함
-- 작성자와 연결된 지인이 많음
-- 일반 사용자보다 호의적인 피드백을 줄 가능성이 있음
-
-따라서 LinkedIn 데이터는 초기 사용성 검증에는 활용할 수 있지만, 전체 시장성을 대표하는 데이터로 해석해서는 안 된다.
+- Whether the name and message of Odday are understood
+- Whether users start acting on the first screen
+- Whether the quest-selection process feels natural
+- Whether it leads to actual completion
+- Whether users request the next quest after completion
 
 ---
 
-## 8. 핵심 사용자 흐름
+### 7.2 Portfolio use
 
-Odday MVP의 기본 사용자 흐름은 다음과 같다.
+Odday isn't just a UI-implementation project; it can serve as a portfolio demonstrating:
+
+- Product idea articulation
+- Core hypothesis definition
+- MVP scope setting
+- User behavior funnel design
+- Event-based data collection
+- Anonymous user analysis
+- Product improvement based on experiment results
+- Actual service deployment and operation
+
+That said, LinkedIn-sourced users are likely to differ from general users.
+
+LinkedIn visitors may have these traits:
+
+- A high proportion of developers or office workers
+- Interest in the project implementation itself
+- Approaching from a portfolio rather than a service perspective
+- Many are acquaintances connected to the author
+- Likely to give more favorable feedback than general users
+
+So LinkedIn data can be used for early usability validation, but must not be interpreted as data representing the whole market.
+
+---
+
+## 8. Core user flow
+
+The basic user flow of the Odday MVP is:
 
 ```text
-Odday 방문
-→ 현재 상황 선택
-→ 퀘스트 후보 확인
-→ 퀘스트 선택
-→ 현실에서 퀘스트 수행
-→ 완료 여부 기록
-→ 짧은 피드백 제출
-→ 다음 퀘스트 요청
-→ 재방문 또는 공유
+Visit Odday
+→ Select current situation
+→ View candidate quests
+→ Select a quest
+→ Perform the quest in reality
+→ Record completion status
+→ Submit short feedback
+→ Request the next quest
+→ Revisit or share
 ```
 
-각 단계는 사용자의 의도와 이탈 원인을 구분할 수 있도록 설계한다.
+Each step is designed so we can distinguish the user's intent from the cause of drop-off.
 
 ---
 
-## 9. 첫 화면 구성
+## 9. First-screen composition
 
-Odday의 첫 화면은 서비스 설명보다 즉시 행동을 시작할 수 있도록 구성한다.
+Odday's first screen is composed to let users start acting immediately, rather than explaining the service.
 
-### 메인 카피
+### Main copy
 
 > 오늘을 조금 이상하게.
 
-### 서브 카피
+### Sub copy
 
 > 지금 상황에 맞는 작은 현실 퀘스트를 받아보세요.
 
-### 주요 행동 버튼
+### Primary action button
 
 ```text
 오늘의 Odday 시작하기
 ```
 
-또는 다음 표현을 사용할 수 있다.
+Alternative expressions:
 
 ```text
 퀘스트 받아보기
@@ -278,40 +281,40 @@ Odday의 첫 화면은 서비스 설명보다 즉시 행동을 시작할 수 있
 작은 사건 만들기
 ```
 
-MVP에서는 `오늘의 Odday 시작하기`를 기본 문구로 사용한다.
+The MVP uses `오늘의 Odday 시작하기` as the default label.
 
 ---
 
-## 10. MVP 기능 범위
+## 10. MVP feature scope
 
-### 10.1 현재 상황 선택
+### 10.1 Current-situation selection
 
-사용자가 현재 수행 가능한 조건을 선택한다.
+The user selects the conditions they can currently act under.
 
-예시 조건:
+Example conditions:
 
-- 실내 / 실외
-- 혼자 / 함께
-- 1분 / 5분 / 20분
-- 편안한 행동 / 새로운 행동 / 약간의 용기가 필요한 행동
-- 비용 없음 / 소액 지출 가능
-- 집 / 회사 / 외부
+- Indoor / outdoor
+- Alone / together
+- 1 min / 5 min / 20 min
+- Comfortable action / new action / action requiring a bit of courage
+- No cost / small spend possible
+- Home / office / outside
 
-모든 조건을 필수로 입력하게 하면 시작 장벽이 높아질 수 있다.
+Requiring all conditions raises the barrier to starting.
 
-초기 MVP에서는 다음 세 가지를 우선 사용한다.
+The early MVP prioritizes these three:
 
-- 현재 위치: 실내 / 실외
-- 참여 형태: 혼자 / 함께
-- 사용 가능 시간: 1분 / 5분 / 20분
+- Current location: indoor / outdoor
+- Participation form: alone / together
+- Available time: 1 min / 5 min / 20 min
 
 ---
 
-### 10.2 퀘스트 후보 제공
+### 10.2 Candidate quest provision
 
-선택한 조건에 따라 3개 정도의 퀘스트를 제공한다.
+Based on the selected conditions, provide about 3 quests.
 
-예시:
+Example:
 
 #### 가벼운 Odday
 
@@ -325,23 +328,23 @@ MVP에서는 `오늘의 Odday 시작하기`를 기본 문구로 사용한다.
 
 > 평소 가지 않던 방향으로 10분간 걸은 뒤 가장 눈에 띄는 장소를 기록해보세요.
 
-사용자는 하나를 선택하거나 모두 건너뛸 수 있다.
+The user can pick one or skip them all.
 
 ---
 
-### 10.3 퀘스트 상세 정보
+### 10.3 Quest detail information
 
-각 퀘스트에는 다음 정보를 표시한다.
+Each quest displays the following information:
 
-- 퀘스트 제목
-- 짧은 설명
-- 예상 소요 시간
-- 실내 또는 실외 여부
-- 혼자 또는 함께 수행 여부
-- 활동 강도
-- 비용 발생 여부
+- Quest title
+- Short description
+- Estimated time
+- Indoor or outdoor
+- Alone or together
+- Activity intensity
+- Whether it costs money
 
-예시:
+Example:
 
 ```text
 퀘스트: 가장 이상한 물건 찾기
@@ -354,52 +357,52 @@ MVP에서는 `오늘의 Odday 시작하기`를 기본 문구로 사용한다.
 
 ---
 
-### 10.4 퀘스트 수행
+### 10.4 Quest performance
 
-퀘스트 수행 여부는 엄격하게 검증하지 않는다.
+Quest completion is not strictly verified.
 
-초기 MVP에서는 사용자가 직접 완료 여부를 선택하도록 한다.
+In the early MVP, the user marks completion themselves.
 
-가능한 완료 방식:
+Possible completion methods:
 
-- 완료 버튼
-- 짧은 텍스트 기록
-- 만족도 선택
-- 선택적인 사진 기록
+- Complete button
+- Short text note
+- Satisfaction selection
+- Optional photo record
 
-초기 버전에서는 사진 업로드 기능을 제외하거나 브라우저 로컬 저장만 지원하는 것이 좋다.
+For the early version, it's best to exclude photo upload or support browser-local storage only.
 
-사진을 서버에 저장할 경우 다음 문제가 발생한다.
+Storing photos on a server creates these problems:
 
-- 개인정보
-- 위치 정보 노출
-- 저장 용량
-- 삭제 정책
-- 부적절한 콘텐츠 관리
-- 운영 비용
+- Personal information
+- Location exposure
+- Storage capacity
+- Deletion policy
+- Inappropriate-content moderation
+- Operating cost
 
 ---
 
-### 10.5 완료 후 피드백
+### 10.5 Post-completion feedback
 
-완료 후에는 긴 설문 대신 한두 개의 질문만 제공한다.
+After completion, offer only one or two questions instead of a long survey.
 
-#### 핵심 질문
+#### Core question
 
 > Odday가 없었다면 실제로 이 행동을 했을까요?
 
-선택지:
+Options:
 
 - 전혀 하지 않았을 것이다.
 - 아마 하지 않았을 것이다.
 - 상황에 따라 했을 수도 있다.
 - 원래 할 예정이었다.
 
-#### 추가 질문
+#### Follow-up question
 
 > 비슷한 Odday를 다시 해보고 싶나요?
 
-선택지:
+Options:
 
 - 바로 다른 퀘스트도 해보고 싶다.
 - 다음에 다시 해보고 싶다.
@@ -408,11 +411,11 @@ MVP에서는 `오늘의 Odday 시작하기`를 기본 문구로 사용한다.
 
 ---
 
-### 10.6 퀘스트 건너뛰기
+### 10.6 Skipping a quest
 
-사용자가 퀘스트를 선택하지 않았을 때 이유를 수집한다.
+When the user doesn't select a quest, collect the reason.
 
-선택지는 다음처럼 단순하게 구성한다.
+Keep the options simple:
 
 - 재미없어 보임
 - 너무 귀찮음
@@ -424,17 +427,17 @@ MVP에서는 `오늘의 Odday 시작하기`를 기본 문구로 사용한다.
 - 다른 종류의 퀘스트를 원함
 - 기타
 
-이 데이터는 퀘스트 내용 자체의 문제와 상황 불일치 문제를 구분하는 데 사용한다.
+This data is used to distinguish a problem with the quest content itself from a situation-mismatch problem.
 
 ---
 
-### 10.7 다음 Odday 요청
+### 10.7 Requesting the next Odday
 
-퀘스트 완료 이후 사용자가 새로운 퀘스트를 요청할 수 있도록 한다.
+After completing a quest, let the user request a new one.
 
-이 행동은 반복 사용 가능성을 판단하는 중요한 지표다.
+This action is an important indicator for judging the likelihood of repeat use.
 
-완료 직후 다음 선택지를 제공할 수 있다.
+Right after completion, we can offer these options:
 
 - 비슷한 퀘스트 받기
 - 조금 더 어려운 퀘스트 받기
@@ -443,28 +446,28 @@ MVP에서는 `오늘의 Odday 시작하기`를 기본 문구로 사용한다.
 
 ---
 
-### 10.8 개인 기록
+### 10.8 Personal records
 
-사용자가 수행한 기록은 초기에는 브라우저에만 저장한다.
+Records of what the user performed are initially stored only in the browser.
 
-저장 항목 예시:
+Example stored fields:
 
-- 수행 날짜
-- 퀘스트 제목
-- 퀘스트 카테고리
-- 완료 여부
-- 만족도
-- 선택적 한 줄 기록
+- Performance date
+- Quest title
+- Quest category
+- Completion status
+- Satisfaction
+- Optional one-line note
 
-로그인 없이 `localStorage`를 활용하면 서버에 개인 기록을 저장하지 않고도 기본적인 타임라인을 제공할 수 있다.
+Using `localStorage` without login, we can provide a basic timeline without storing personal records on a server.
 
-### 기록 화면 제목 예시
+### Record-screen title examples
 
 ```text
 My Oddays
 ```
 
-또는 한국어로 다음 표현을 사용할 수 있다.
+Or in Korean:
 
 ```text
 나의 이상한 날들
@@ -472,17 +475,17 @@ Odday 기록
 작은 사건들
 ```
 
-MVP에서는 `My Oddays` 또는 `Odday 기록`을 사용할 수 있다.
+The MVP may use `My Oddays` or `Odday 기록`.
 
 ---
 
-## 11. 퀘스트 카테고리
+## 11. Quest categories
 
-Odday 퀘스트는 다음 카테고리로 구분한다.
+Odday quests are divided into the following categories.
 
-### 관찰
+### 관찰 (Observation)
 
-주변을 평소보다 자세히 보게 만드는 퀘스트다.
+Quests that make the user look at their surroundings more closely than usual.
 
 - 같은 색 물건 5개 찾기
 - 가장 이상한 간판 찾기
@@ -491,9 +494,9 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-### 탐험
+### 탐험 (Exploration)
 
-평소와 다른 장소나 경로를 경험하게 하는 퀘스트다.
+Quests that let the user experience an unfamiliar place or route.
 
 - 평소 가지 않던 골목 들어가기
 - 다른 출입구 사용하기
@@ -502,9 +505,9 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-### 감각
+### 감각 (Senses)
 
-오감에 집중하는 퀘스트다.
+Quests that focus on the five senses.
 
 - 주변 소리 세 가지 구분하기
 - 노래 한 곡을 아무것도 하지 않고 듣기
@@ -513,9 +516,9 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-### 정리
+### 정리 (Tidying)
 
-작은 생활 변화를 만드는 퀘스트다.
+Quests that make a small change in daily life.
 
 - 물건 하나 버리기
 - 사용하지 않는 앱 하나 삭제하기
@@ -524,9 +527,9 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-### 관계
+### 관계 (Relationships)
 
-다른 사람과 작은 사건을 만드는 퀘스트다.
+Quests that create a small event with another person.
 
 - 구체적인 감사 한마디 전하기
 - 오랫동안 연락하지 않은 사람 떠올리기
@@ -535,9 +538,9 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-### 창작
+### 창작 (Creation)
 
-작은 결과물을 만드는 퀘스트다.
+Quests that produce a small artifact.
 
 - 오늘 하루의 제목 짓기
 - 주변 사물로 얼굴 만들기
@@ -546,9 +549,9 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-### 회상
+### 회상 (Recollection)
 
-과거의 기억을 꺼내는 퀘스트다.
+Quests that bring out past memories.
 
 - 가장 오래된 사진 찾기
 - 학창 시절 좋아했던 음악 듣기
@@ -557,9 +560,9 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-### 용기
+### 용기 (Courage)
 
-약간의 심리적 저항을 넘게 만드는 퀘스트다.
+Quests that push the user past a bit of psychological resistance.
 
 - 평소 주문하지 않던 메뉴 선택하기
 - 미뤄둔 짧은 전화 걸기
@@ -568,64 +571,64 @@ Odday 퀘스트는 다음 카테고리로 구분한다.
 
 ---
 
-## 12. MVP에서 제외할 기능
+## 12. Features excluded from the MVP
 
-초기 검증 단계에서는 다음 기능을 제외한다.
+The early validation stage excludes the following features:
 
-- 증강현실
-- 지도 기반 퀘스트
-- 정확한 GPS 위치 수집
-- 회원가입
-- 팔로우 및 소셜 피드
-- 경험치와 레벨
-- 복잡한 배지 시스템
-- 실시간 채팅
-- 사용자 랭킹
-- 유료 결제
-- AI 기반 무한 퀘스트 생성
-- 3D 캐릭터
-- 퀘스트 제작자 플랫폼
-- 푸시 알림
-- 네이티브 모바일 앱
+- Augmented reality
+- Map-based quests
+- Precise GPS location collection
+- Sign-up
+- Follow and social feed
+- Experience points and levels
+- A complex badge system
+- Real-time chat
+- User rankings
+- Paid transactions
+- AI-based infinite quest generation
+- 3D characters
+- A quest-creator platform
+- Push notifications
+- A native mobile app
 
-이 기능들은 구현 난이도는 높지만 Odday의 핵심 가설을 검증하는 데 직접 필요하지 않다.
+These are high-effort to build but not directly needed to validate Odday's core hypotheses.
 
 ---
 
-## 13. 익명 데이터 수집 원칙
+## 13. Anonymous data-collection principles
 
-Odday MVP에서는 사용자 개인을 특정할 수 있는 정보는 최대한 수집하지 않는다.
+The Odday MVP avoids collecting personally identifiable information as much as possible.
 
-### 수집하지 않는 정보
+### Information NOT collected
 
-- 이름
-- 이메일
-- 전화번호
-- 정확한 주소
-- 정확한 GPS 좌표
-- 연락처
-- 개인 프로필
-- 불필요한 기기 정보
-- 사용자의 사진 원본
-- 사용자의 상세 활동 위치
+- Name
+- Email
+- Phone number
+- Precise address
+- Precise GPS coordinates
+- Contacts
+- Personal profile
+- Unnecessary device information
+- The user's original photos
+- The user's detailed activity location
 
-### 수집 가능한 정보
+### Information that MAY be collected
 
-- 익명 방문자 식별자
-- 세션 식별자
-- 페이지 방문
-- 퀘스트 노출
-- 퀘스트 선택
-- 퀘스트 건너뛰기
-- 퀘스트 완료
-- 다음 퀘스트 요청
-- 공유 버튼 클릭
-- 유입 경로
-- 선택한 상황 조건
-- 만족도
-- 행동 유발 여부
+- Anonymous visitor identifier
+- Session identifier
+- Page visits
+- Quest impressions
+- Quest selections
+- Quest skips
+- Quest completions
+- Next-quest requests
+- Share-button clicks
+- Referral path
+- Selected situation conditions
+- Satisfaction
+- Whether an action was triggered
 
-익명 식별자는 브라우저에서 무작위 UUID를 생성해 사용할 수 있다.
+The anonymous identifier can be a random UUID generated in the browser.
 
 ```ts
 const VISITOR_ID_KEY = "odday-visitor-id";
@@ -644,15 +647,15 @@ export function getOddayVisitorId(): string {
 }
 ```
 
-이 식별자는 사용자 이름이나 연락처와 연결하지 않는다.
+This identifier is not linked to a user's name or contact information.
 
-다만 익명 식별자도 반복 방문자를 구분하기 위한 데이터이므로, 사이트 내 개인정보 및 분석 안내에 명시한다.
+However, since an anonymous identifier is still data for distinguishing returning visitors, it's stated in the site's privacy and analytics notice.
 
 ---
 
-## 14. 이벤트 설계
+## 14. Event design
 
-초기 분석 이벤트는 다음 수준으로 구성한다.
+The early analytics events are composed at this level.
 
 ```ts
 type OddayAnalyticsEvent =
@@ -716,265 +719,265 @@ type OddayAnalyticsEvent =
 
 ---
 
-## 15. 핵심 분석 퍼널
+## 15. Core analytics funnels
 
-### 15.1 첫 행동 퍼널
-
-```text
-Odday 방문
-→ 시작 버튼 클릭
-→ 상황 선택
-→ 퀘스트 노출
-→ 퀘스트 선택
-```
-
-이 퍼널은 첫 화면과 가치 제안이 충분히 매력적인지 판단한다.
-
----
-
-### 15.2 수행 퍼널
+### 15.1 First-action funnel
 
 ```text
-퀘스트 선택
-→ 퀘스트 시작
-→ 퀘스트 완료
-→ 완료 피드백 제출
+Visit Odday
+→ Click the start button
+→ Select situation
+→ Quest impression
+→ Select quest
 ```
 
-이 퍼널은 사용자가 단순히 관심만 보이는지, 실제 행동까지 이어지는지 판단한다.
+This funnel judges whether the first screen and value proposition are attractive enough.
 
 ---
 
-### 15.3 반복 사용 퍼널
+### 15.2 Performance funnel
 
 ```text
-퀘스트 완료
-→ 다음 퀘스트 요청
-→ 동일 세션 내 추가 완료
-→ 며칠 뒤 재방문
+Select quest
+→ Start quest
+→ Complete quest
+→ Submit completion feedback
 ```
 
-이 퍼널은 Odday가 일회성 호기심에 그치는지 판단한다.
+This funnel judges whether users merely show interest or actually follow through with action.
 
 ---
 
-### 15.4 공유 퍼널
+### 15.3 Repeat-use funnel
 
 ```text
-퀘스트 완료
-→ 공유 버튼 클릭
-→ 공유 링크를 통한 신규 방문
+Complete quest
+→ Request next quest
+→ Additional completion within the same session
+→ Revisit a few days later
 ```
 
-이 퍼널은 관계형 서비스 또는 바이럴 가능성을 판단한다.
+This funnel judges whether Odday stops at one-time curiosity.
 
 ---
 
-## 16. 주요 지표
-
-### 16.1 Odday 시작률
+### 15.4 Share funnel
 
 ```text
-시작 버튼을 클릭한 사용자 수
-/ Odday 방문 사용자 수
+Complete quest
+→ Click share button
+→ New visit via the share link
 ```
 
-첫 화면에서 서비스 가치가 충분히 전달되는지 판단한다.
+This funnel judges relational-service or viral potential.
 
 ---
 
-### 16.2 퀘스트 선택률
+## 16. Key metrics
+
+### 16.1 Odday start rate
 
 ```text
-퀘스트를 선택한 사용자 수
-/ 퀘스트를 본 사용자 수
+Number of users who clicked the start button
+/ Number of users who visited Odday
 ```
 
-퀘스트 자체가 매력적으로 보이는지 판단한다.
+Judges whether the first screen conveys enough service value.
 
 ---
 
-### 16.3 퀘스트 완료율
+### 16.2 Quest selection rate
 
 ```text
-퀘스트를 완료한 사용자 수
-/ 퀘스트를 선택한 사용자 수
+Number of users who selected a quest
+/ Number of users who saw quests
 ```
 
-실제 행동 비용이 적절한지 판단한다.
+Judges whether the quests themselves look attractive.
 
 ---
 
-### 16.4 행동 유발률
+### 16.3 Quest completion rate
 
 ```text
-“Odday가 없었다면 하지 않았을 것”이라고 응답한 사용자 수
-/ 퀘스트를 완료한 사용자 수
+Number of users who completed a quest
+/ Number of users who selected a quest
 ```
 
-Odday에서 가장 중요한 지표다.
-
-단순히 재미있는 콘텐츠를 제공한 것이 아니라 실제 행동 변화를 만들었는지 확인한다.
+Judges whether the actual behavior cost is appropriate.
 
 ---
 
-### 16.5 다음 퀘스트 요청률
+### 16.4 Action-trigger rate
 
 ```text
-다음 퀘스트를 요청한 사용자 수
-/ 퀘스트를 완료한 사용자 수
+Number of users who answered "I wouldn't have done it without Odday"
+/ Number of users who completed a quest
 ```
 
-반복 사용 가능성을 확인한다.
+The most important metric for Odday.
+
+Confirms that we didn't just provide fun content, but actually produced behavior change.
 
 ---
 
-### 16.6 재방문율
+### 16.5 Next-quest request rate
 
 ```text
-일정 기간 내 다시 방문한 익명 사용자 수
-/ 최초 방문 사용자 수
+Number of users who requested the next quest
+/ Number of users who completed a quest
 ```
 
-1일과 7일 단위로 확인한다.
-
-초기에는 유입 수가 적을 수 있으므로 절대적인 비율보다 실제 사용자 행동을 함께 분석한다.
+Confirms the likelihood of repeat use.
 
 ---
 
-### 16.7 공유 시도율
+### 16.6 Revisit rate
 
 ```text
-공유 버튼을 클릭한 사용자 수
-/ 퀘스트를 완료한 사용자 수
+Number of anonymous users who visited again within a period
+/ Number of first-time visitors
 ```
 
-퀘스트 결과를 다른 사람에게 보여줄 가치가 있는지 확인한다.
+Checked on a 1-day and 7-day basis.
+
+Early on, inflow may be low, so analyze actual user behavior alongside the absolute ratio.
 
 ---
 
-## 17. 데이터 해석 기준
+### 16.7 Share-attempt rate
 
-### 방문은 많지만 시작 버튼을 클릭하지 않는 경우
+```text
+Number of users who clicked the share button
+/ Number of users who completed a quest
+```
 
-가능한 원인:
-
-- Odday가 무엇인지 이해되지 않음
-- 첫 화면 문구가 추상적임
-- 사용자가 얻는 가치가 보이지 않음
-- 포트폴리오 페이지처럼 보임
-- 실제 서비스라는 인상이 약함
-
-개선 방향:
-
-- 예시 퀘스트 즉시 노출
-- 첫 화면 설명 축소
-- 행동 중심 문구 사용
-- 시작 버튼 강조
-- 실제 수행 결과 예시 제공
+Confirms whether the quest result is worth showing to others.
 
 ---
 
-### 시작했지만 상황 선택을 완료하지 않는 경우
+## 17. Data interpretation criteria
 
-가능한 원인:
+### Many visits but no start-button clicks
 
-- 선택지가 너무 많음
-- 조건 입력이 귀찮음
-- 왜 조건을 입력해야 하는지 모름
-- 바로 퀘스트를 보고 싶어 함
+Possible causes:
 
-개선 방향:
+- Odday isn't understood
+- The first-screen copy is abstract
+- The value the user gets isn't visible
+- It looks like a portfolio page
+- The impression of a real service is weak
 
-- 조건 수 축소
-- 기본값 제공
-- 하나의 질문씩 표시
-- 조건 선택 없이 랜덤 퀘스트 제공하는 경로 추가
+Improvement directions:
 
----
-
-### 퀘스트는 보지만 선택하지 않는 경우
-
-가능한 원인:
-
-- 퀘스트가 유치함
-- 현재 상황과 맞지 않음
-- 행동 결과가 매력적이지 않음
-- 선택지가 서로 비슷함
-- 실행 비용이 커 보임
-
-개선 방향:
-
-- 퀘스트 문장 개선
-- 카테고리 다양화
-- 상황 조건 세분화
-- 예상 시간과 비용 명확화
-- 가벼운 선택과 도전적인 선택 구분
+- Show example quests immediately
+- Reduce first-screen explanation
+- Use action-focused copy
+- Emphasize the start button
+- Provide examples of actual performance results
 
 ---
 
-### 퀘스트는 선택하지만 완료하지 않는 경우
+### Started but didn't finish situation selection
 
-가능한 원인:
+Possible causes:
 
-- 행동 비용이 큼
-- 이동이 필요함
-- 시간이 오래 걸림
-- 완료 화면으로 돌아오는 것을 잊음
-- 결과 기록이 부담스러움
-- 실제로 실행할 만큼 흥미롭지 않음
+- Too many options
+- Entering conditions is tedious
+- Unclear why conditions must be entered
+- Wants to see quests right away
 
-개선 방향:
+Improvement directions:
 
-- 더 짧은 퀘스트 제공
-- 시작 전에 예상 시간을 명확히 표시
-- 완료 기록 단순화
-- 외출 없는 퀘스트 확대
-- 나중에 완료 표시할 수 있는 기능 제공
+- Reduce the number of conditions
+- Provide defaults
+- Show one question at a time
+- Add a path that provides a random quest without condition selection
 
 ---
 
-### 완료하지만 다음 퀘스트를 요청하지 않는 경우
+### Sees quests but doesn't select
 
-가능한 원인:
+Possible causes:
 
-- 한 번의 경험으로 충분함
-- 퀘스트 결과가 기대보다 약함
-- 반복해서 할 이유가 없음
-- 다음 퀘스트에 대한 기대감이 없음
-- 기록 축적 가치가 보이지 않음
+- The quests are childish
+- They don't fit the current situation
+- The action results aren't attractive
+- The options are too similar to each other
+- The execution cost looks high
 
-개선 방향:
+Improvement directions:
 
-- 연속된 퀘스트 챕터
-- 개인 기록 제공
-- 난이도 선택
-- 관계형 퀘스트 도입
-- 퀘스트 성향 분석
-- 월간 Odday 회고 제공
-
----
-
-### 공유는 하지만 재방문하지 않는 경우
-
-가능한 원인:
-
-- 퀘스트는 웃기지만 지속 가치가 약함
-- 퀘스트보다 결과 이미지가 더 매력적임
-- 일회성 이벤트 성격이 강함
-
-이 경우 Odday를 반복 사용 서비스가 아니라 다음 방향으로 수정하는 것도 고려할 수 있다.
-
-- 공유 가능한 결과 카드 생성기
-- 친구에게 보내는 퀘스트 도구
-- 모임용 퀘스트팩
-- 데이트용 일회성 콘텐츠
+- Improve quest wording
+- Diversify categories
+- Refine situation conditions
+- Clarify estimated time and cost
+- Distinguish light choices from challenging ones
 
 ---
 
-## 18. 유입 경로 측정
+### Selects a quest but doesn't complete it
 
-유입 경로별 행동 차이를 확인하기 위해 URL 쿼리 파라미터를 사용한다.
+Possible causes:
+
+- High behavior cost
+- Requires movement
+- Takes a long time
+- Forgets to return to the completion screen
+- Recording the result feels burdensome
+- Not interesting enough to actually execute
+
+Improvement directions:
+
+- Offer shorter quests
+- Clearly show estimated time before starting
+- Simplify completion recording
+- Expand quests that require no going out
+- Provide the ability to mark completion later
+
+---
+
+### Completes but doesn't request the next quest
+
+Possible causes:
+
+- One experience is enough
+- The quest result was weaker than expected
+- No reason to repeat
+- No anticipation for the next quest
+- The value of accumulating records isn't visible
+
+Improvement directions:
+
+- Sequential quest chapters
+- Provide personal records
+- Difficulty selection
+- Introduce relational quests
+- Quest-tendency analysis
+- Provide a monthly Odday retrospective
+
+---
+
+### Shares but doesn't revisit
+
+Possible causes:
+
+- The quest is funny but has weak lasting value
+- The result image is more attractive than the quest
+- It has a strong one-time-event character
+
+In this case, consider reshaping Odday into something other than a repeat-use service:
+
+- A shareable result-card generator
+- A tool for sending quests to friends
+- Quest packs for gatherings
+- One-time content for dates
+
+---
+
+## 18. Referral-path measurement
+
+To check behavior differences by referral path, use URL query parameters.
 
 ```text
 ?ref=linkedin-profile
@@ -985,193 +988,193 @@ Odday에서 가장 중요한 지표다.
 ?ref=community
 ```
 
-유입 경로별로 다음을 비교한다.
+Compare the following by referral path:
 
-- Odday 시작률
-- 퀘스트 선택률
-- 완료율
-- 행동 유발률
-- 다음 퀘스트 요청률
-- 재방문율
-- 공유율
+- Odday start rate
+- Quest selection rate
+- Completion rate
+- Action-trigger rate
+- Next-quest request rate
+- Revisit rate
+- Share rate
 
-LinkedIn 유입 사용자는 포트폴리오에 관심이 있을 가능성이 높으므로 다른 유입 경로와 별도로 분석한다.
+Since LinkedIn-sourced users are likely interested in the portfolio, analyze them separately from other referral paths.
 
 ---
 
-## 19. 분석 도구 후보
+## 19. Analytics-tool candidates
 
-GitHub Pages는 정적 호스팅만 제공하므로 분석 기능은 외부 도구를 사용한다.
+Because GitHub Pages provides only static hosting, analytics uses an external tool.
 
-후보는 다음과 같다.
+Candidates:
 
 - PostHog
 - Plausible
 - Umami
 - Google Analytics
 - Supabase
-- 자체 이벤트 API
+- A self-built event API
 
-Odday MVP에서는 다음 조건을 우선한다.
+The Odday MVP prioritizes these criteria:
 
-- 커스텀 이벤트 수집이 쉬움
-- 퍼널 확인 가능
-- 익명 사용자 분석 가능
-- 무료 사용량이 충분함
-- GitHub Pages 연동이 간단함
+- Easy custom event collection
+- Ability to view funnels
+- Ability to analyze anonymous users
+- A sufficient free tier
+- Simple integration with GitHub Pages
 
-초기에는 PostHog나 Umami처럼 이벤트 중심 분석이 가능한 도구가 적합하다.
-
----
-
-## 20. 초기 성공 기준
-
-초기 성공 여부는 페이지 방문 수만으로 판단하지 않는다.
-
-다음 행동이 실제로 발생하는지를 확인한다.
-
-예시 기준:
-
-- 방문 대비 Odday 시작률 40% 이상
-- 퀘스트 노출 대비 선택률 30% 이상
-- 퀘스트 선택 대비 완료율 30% 이상
-- 완료 사용자 중 행동 유발 응답 50% 이상
-- 완료 사용자 중 다음 퀘스트 요청률 20% 이상
-- 재방문 사용자 발생
-- 공유 버튼 사용 발생
-- 사용자가 자발적으로 새로운 퀘스트를 요청함
-- 선택 사항인 한 줄 피드백을 남김
-
-초기 표본이 작다면 비율보다 실제 행동의 질을 함께 본다.
-
-예를 들어 다음 행동은 강한 신호다.
-
-- 사용자가 다음 퀘스트를 먼저 요청함
-- 퀘스트 결과를 길게 설명함
-- 다른 사람과 같이 해보고 싶다고 말함
-- 친구에게 Odday 링크를 직접 공유함
-- 며칠 후 다시 방문함
-- 특정 퀘스트 카테고리를 반복해서 선택함
-- 유료 퀘스트팩에 관심을 보임
+Early on, an event-centric analytics tool like PostHog or Umami is a good fit.
 
 ---
 
-## 21. 위험 신호
+## 20. Early success criteria
 
-다음 결과가 반복되면 Odday의 서비스 방향을 다시 검토해야 한다.
+Early success isn't judged by page-visit count alone.
 
-- 방문자는 있지만 시작 버튼을 누르지 않음
-- 대부분 퀘스트를 보기만 하고 선택하지 않음
-- 선택한 사용자가 실제 행동으로 이어지지 않음
-- 완료했지만 다음 퀘스트를 원하지 않음
-- 사용자가 퀘스트를 유치하다고 느낌
-- 위치 이동이 필요한 순간 완료율이 급격히 감소함
-- 기록이나 인증 과정에서 대부분 이탈함
-- LinkedIn 지인을 제외하면 반응이 거의 없음
-- 퀘스트 자체보다 포트폴리오 구현에만 관심을 보임
-- 무료 사용에서도 반복 사용이 발생하지 않음
+We check whether the following behaviors actually occur.
 
----
+Example criteria:
 
-## 22. 향후 확장 방향
+- Odday start rate ≥ 40% of visits
+- Selection rate ≥ 30% of quest impressions
+- Completion rate ≥ 30% of quest selections
+- Action-trigger response ≥ 50% of completing users
+- Next-quest request rate ≥ 20% of completing users
+- Revisiting users appear
+- Share-button usage occurs
+- Users spontaneously request new quests
+- Users leave the optional one-line feedback
 
-MVP에서 긍정적인 신호가 확인된 이후 다음 기능을 검토한다.
+If the early sample is small, look at the quality of actual behavior alongside the ratios.
 
-### 22.1 개인화
+For example, these behaviors are strong signals:
 
-- 선호 카테고리 학습
-- 건너뛴 퀘스트 유형 제외
-- 시간대 기반 추천
-- 완료 이력 기반 중복 방지
-- 난이도 자동 조정
-- 사용자의 실행 패턴 분석
-
----
-
-### 22.2 관계형 기능
-
-- 친구 또는 연인에게 Odday 보내기
-- 두 명 모두 완료한 후 결과 공개
-- 함께 수행하는 퀘스트
-- 관계별 기록
-- 커플 또는 가족 퀘스트팩
-- 상대방이 만든 퀘스트 전달
+- The user requests the next quest first
+- The user describes the quest result at length
+- The user says they'd like to do it with someone
+- The user directly shares the Odday link with a friend
+- The user revisits a few days later
+- The user repeatedly selects a particular quest category
+- The user shows interest in a paid quest pack
 
 ---
 
-### 22.3 기억 기록
+## 21. Warning signs
 
-- 월간 Odday 회고
-- 수행한 경험 기록
-- 사진 및 한 줄 기록
-- 개인 모험 카드
-- 연간 Odday 리포트
-- 사용자의 퀘스트 성향 분석
+If the following results repeat, Odday's service direction should be re-examined.
 
-예시:
+- There are visitors but they don't press the start button
+- Most only look at quests and don't select
+- Selecting users don't follow through to actual behavior
+- They complete but don't want the next quest
+- Users feel the quests are childish
+- Completion rate drops sharply at the moment movement is required
+- Most drop off during the recording or verification process
+- Little response outside of LinkedIn acquaintances
+- Interest only in the portfolio implementation rather than the quests themselves
+- No repeat use even with free usage
+
+---
+
+## 22. Future expansion directions
+
+After positive signals are confirmed in the MVP, consider the following features.
+
+### 22.1 Personalization
+
+- Learning preferred categories
+- Excluding skipped quest types
+- Time-of-day-based recommendations
+- Duplicate prevention based on completion history
+- Automatic difficulty adjustment
+- Analysis of the user's execution patterns
+
+---
+
+### 22.2 Relational features
+
+- Sending an Odday to a friend or partner
+- Revealing the result after both complete it
+- Quests performed together
+- Records by relationship
+- Couple or family quest packs
+- Forwarding a quest created by the other person
+
+---
+
+### 22.3 Memory records
+
+- Monthly Odday retrospective
+- Records of performed experiences
+- Photos and one-line notes
+- Personal adventure cards
+- Annual Odday report
+- Analysis of the user's quest tendencies
+
+Example:
 
 > 이번 달 당신은 평소와 다른 길을 세 번 선택했고, 새로운 음식을 두 번 시도했으며, Odday가 없었다면 하지 않았을 행동을 다섯 번 수행했습니다.
 
 ---
 
-### 22.4 콘텐츠 확장
+### 22.4 Content expansion
 
-- 혼자 보내는 주말
-- 커플 데이트
-- 친구 모임
-- 아이와 함께
-- 직장인 퇴근 후
-- 새로운 동네 탐험
-- 여행지 퀘스트
-- 비 오는 날
-- 실내 전용
-- 돈을 쓰지 않는 퀘스트
-- 5분 이하 퀘스트
-
----
-
-### 22.5 수익화
-
-- 테마형 Odday 팩
-- 커플 퀘스트팩
-- 가족 퀘스트팩
-- 지역 탐험팩
-- 월간 맞춤 퀘스트
-- 디지털 기록집
-- 실물 카드
-- 사진책
-- 모임용 퀘스트팩
-- 브랜드 협업 퀘스트
+- A weekend alone
+- Couple dates
+- Friend gatherings
+- With a child
+- After work for office workers
+- Exploring a new neighborhood
+- Travel-destination quests
+- Rainy days
+- Indoor-only
+- Quests that spend no money
+- Quests under 5 minutes
 
 ---
 
-## 23. 브랜드 확장 방향
+### 22.5 Monetization
 
-Odday라는 이름은 특정 기능보다 브랜드의 정서를 표현한다.
+- Themed Odday packs
+- Couple quest packs
+- Family quest packs
+- Local-exploration packs
+- Monthly personalized quests
+- A digital record book
+- Physical cards
+- A photo book
+- Quest packs for gatherings
+- Brand-collaboration quests
 
-따라서 향후 기능이 확장되더라도 이름을 유지하기 쉽다.
+---
 
-가능한 브랜드 표현은 다음과 같다.
+## 23. Brand expansion directions
 
-### 서비스명
+The name Odday expresses the brand's sentiment rather than a specific feature.
+
+So the name is easy to keep even as features expand later.
+
+Possible brand expressions:
+
+### Service name
 
 ```text
 Odday
 ```
 
-### 기본 태그라인
+### Default tagline
 
 ```text
 Make today a little odd.
 ```
 
-### 한국어 태그라인
+### Korean tagline
 
 ```text
 오늘을 조금 이상하게.
 ```
 
-### 보조 문구
+### Supporting phrases
 
 ```text
 평범한 하루에 작은 사건 하나.
@@ -1191,52 +1194,52 @@ Make today a little odd.
 
 ---
 
-## 24. UI 문구 예시
+## 24. UI copy examples
 
-### 시작 화면
+### Start screen
 
 ```text
 오늘을 조금 이상하게.
 지금 상황에 맞는 작은 현실 퀘스트를 받아보세요.
 ```
 
-### 퀘스트 제공 화면
+### Quest provision screen
 
 ```text
 오늘의 Odday를 골라보세요.
 ```
 
-### 퀘스트 시작
+### Start quest
 
 ```text
 이걸 해볼래요.
 ```
 
-### 퀘스트 건너뛰기
+### Skip quest
 
 ```text
 오늘은 이건 별로예요.
 ```
 
-### 완료 버튼
+### Complete button
 
 ```text
 해봤어요.
 ```
 
-### 완료 후 메시지
+### Post-completion message
 
 ```text
 오늘이 조금 달라졌네요.
 ```
 
-### 다음 퀘스트 요청
+### Next-quest request
 
 ```text
 다른 Odday도 받아보기
 ```
 
-### 기록 화면
+### Record screen
 
 ```text
 당신의 이상한 날들
@@ -1244,22 +1247,22 @@ Make today a little odd.
 
 ---
 
-## 25. 최종 판단 기준
+## 25. Final judgment criteria
 
-Odday MVP가 답해야 할 가장 중요한 질문은 다음과 같다.
+The most important question the Odday MVP must answer is:
 
-> 사용자가 Odday의 퀘스트를 흥미롭게 보는 것을 넘어, 실제로 몸을 움직이고 평소와 다른 행동을 하는가?
+> Beyond finding Odday's quests interesting, do users actually move their bodies and act differently than usual?
 
-그다음 질문은 다음과 같다.
+The next question is:
 
-> 한 번의 경험 이후 다시 다른 Odday를 수행하고 싶어 하는가?
+> After one experience, do they want to perform another Odday?
 
-이 두 가지가 확인되지 않으면 증강현실, 지도, 게임 시스템, 소셜 기능을 추가해도 핵심 문제는 해결되지 않는다.
+If these two aren't confirmed, adding AR, maps, game systems, or social features won't solve the core problem.
 
-반대로 이 행동이 확인된다면 이후의 기술은 사용 동기와 경험을 강화하는 방향으로 사용할 수 있다.
+Conversely, if this behavior is confirmed, later technology can be used to reinforce the motivation and experience of use.
 
 ---
 
-## 26. 한 줄 요약
+## 26. One-line summary
 
-> Odday는 평범한 하루에 작은 현실 퀘스트를 제안하고, 사용자가 실제로 평소와 다른 행동을 하는지 익명 행동 데이터로 검증하는 GitHub Pages 기반 MVP다.
+> Odday is a GitHub Pages-based MVP that proposes small real-world quests for an ordinary day and validates, through anonymous behavior data, whether users actually act differently than usual.
