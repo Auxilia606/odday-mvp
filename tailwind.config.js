@@ -5,10 +5,10 @@ export default {
     extend: {
       colors: {
         odday: {
-          bg: "#0e0e12",
+          bg: "#09090d",
           surface: "#17171f",
           border: "#2a2a36",
-          accent: "#f5a623",
+          accent: "#ffb020",
           muted: "#9a9aa8",
         },
       },

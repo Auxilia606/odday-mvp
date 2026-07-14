@@ -13,7 +13,7 @@ export function NextQuestScreen({
   onShare: () => void;
 }) {
   return (
-    <Screen
+    <Screen label="오늘의 Odday 완료" progress={4}
       footer={
         <div className="space-y-3">
           <Button onClick={() => onRequest("similar")}>비슷한 퀘스트 받기</Button>
@@ -32,7 +32,7 @@ export function NextQuestScreen({
         </div>
       }
     >
-      <div className="flex flex-1 flex-col justify-center">
+      <div className="flex flex-1 flex-col items-center justify-center text-center"><div className="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-odday-accent to-orange-500 text-4xl shadow-[0_20px_60px_rgba(255,176,32,.25)]">✦</div>
         <h2 className="text-2xl font-bold">기록했어요.</h2>
         <p className="mt-3 text-sm text-odday-muted">
           이어서 또 다른 Odday를 받아볼까요?

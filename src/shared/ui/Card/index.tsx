@@ -6,10 +6,12 @@ export function Card({
   children,
   onClick,
   selected = false,
+  className = "",
 }: {
   children: ReactNode;
   onClick?: () => void;
   selected?: boolean;
+  className?: string;
 }) {
   const clickable = onClick != null;
   return (
@@ -25,13 +27,14 @@ export function Card({
           : undefined
       }
       className={[
-        "rounded-2xl border p-5 transition",
+        "rounded-[1.4rem] border p-5 transition-all duration-300",
         selected
           ? "border-odday-accent bg-odday-accent/10"
           : "border-odday-border bg-odday-surface",
         clickable
-          ? "cursor-pointer touch-manipulation hover:border-odday-accent/60 active:scale-[0.99]"
+          ? "cursor-pointer touch-manipulation hover:-translate-y-0.5 hover:border-odday-accent/60 active:scale-[0.985]"
           : "",
+        className,
       ].join(" ")}
     >
       {children}

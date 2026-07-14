@@ -65,7 +65,7 @@ export function QuestDetailScreen({
   );
 
   return (
-    <Screen footer={footer}>
+    <Screen footer={footer} label={started ? "퀘스트 진행 중" : "퀘스트 미리보기"} progress={3}>
       <button
         onClick={onBack}
         className="mb-6 self-start text-sm text-odday-muted hover:text-white"
@@ -73,7 +73,7 @@ export function QuestDetailScreen({
         ← 다른 퀘스트 보기
       </button>
 
-      <Card>
+      {started && <div className="mb-5 flex items-center gap-3 rounded-2xl bg-emerald-400/[.07] p-3 text-sm text-emerald-300"><span className="h-3 w-3 animate-pulse rounded-full bg-emerald-400" />평소와 다른 순간을 만들고 있어요</div>}<Card className="bg-gradient-to-br from-odday-surface to-[#201a14]">
         <div className="mb-3 flex flex-wrap gap-1.5">
           <Tag>{CATEGORY_LABELS[quest.category]}</Tag>
           <Tag>{INTENSITY_LABELS[quest.intensity]}</Tag>
