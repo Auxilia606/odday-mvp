@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "node:path";
 
 // GitHub Pages는 https://{username}.github.io/{repo}/ 하위 경로로 서빙되므로
 // base를 레포 이름('/odday-mvp/')과 일치시킨다. 값이 다르면 배포는 되지만
@@ -7,4 +8,8 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/odday-mvp/",
   plugins: [react()],
+  resolve: {
+    // FSD 레이어 경로용 별칭. (docs/architecture/odday-fsd-guide.md §5)
+    alias: { "@": path.resolve(__dirname, "src") },
+  },
 });
