@@ -21,6 +21,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 환경(github-pages) 시크릿은 그 환경을 선언한 job에서만 접근 가능하다.
+    # VITE_* 값을 빌드 시점에 번들에 주입해야 하므로 build job에도 선언한다.
+    environment: github-pages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,7 +33,7 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # 레포 Settings → Secrets and variables → Actions 에 등록한 값 주입.
+          # Settings → Environments → github-pages 의 환경 시크릿에서 주입.
           # 비어 있으면 PostHog 수집 없이 빌드된다. (MVP 문서 섹션 19)
           VITE_PUBLIC_POSTHOG_KEY: ${{ secrets.VITE_PUBLIC_POSTHOG_KEY }}
           VITE_PUBLIC_POSTHOG_HOST: ${{ secrets.VITE_PUBLIC_POSTHOG_HOST }}
