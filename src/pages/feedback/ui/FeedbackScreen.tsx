@@ -2,6 +2,7 @@
 
 import type { Dispatch, SetStateAction } from "react";
 import { Button } from "@/shared/ui/Button";
+import { HeroBadge } from "@/shared/ui/HeroBadge";
 import { Screen } from "@/shared/ui/Screen";
 import type { FeedbackDraft, FeedbackInput } from "../model/feedback";
 
@@ -64,7 +65,12 @@ export function FeedbackScreen({
         </Button>
       }
     >
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400/15 text-2xl text-emerald-300">✓</div><h2 className="mb-1 text-[1.75rem] font-extrabold">오늘이 조금 달라졌네요.</h2>
+      <HeroBadge size="md" tone="emerald" className="mb-5">
+        ✓
+      </HeroBadge>
+      <h2 className="mb-1 text-[1.75rem] font-extrabold">
+        오늘이 조금 달라졌네요.
+      </h2>
       <p className="mb-8 text-sm text-odday-muted">두 가지만 여쭤볼게요.</p>
 
       <p className="mb-3 text-sm font-medium">

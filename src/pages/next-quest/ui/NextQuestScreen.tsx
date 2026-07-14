@@ -1,6 +1,7 @@
 // 다음 Odday 요청 화면. (MVP 문서 섹션 10.7)
 
 import { Button } from "@/shared/ui/Button";
+import { HeroBadge } from "@/shared/ui/HeroBadge";
 import { Screen } from "@/shared/ui/Screen";
 
 export function NextQuestScreen({
@@ -32,7 +33,10 @@ export function NextQuestScreen({
         </div>
       }
     >
-      <div className="flex flex-1 flex-col items-center justify-center text-center"><div className="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-odday-accent to-orange-500 text-4xl shadow-[0_20px_60px_rgba(255,176,32,.25)]">✦</div>
+      <div className="flex flex-1 flex-col items-center justify-center text-center">
+        <HeroBadge size="lg" tone="accent" className="mb-8">
+          ✦
+        </HeroBadge>
         <h2 className="text-2xl font-bold">기록했어요.</h2>
         <p className="mt-3 text-sm text-odday-muted">
           이어서 또 다른 Odday를 받아볼까요?

@@ -25,13 +25,43 @@ export function Screen({
           "sm:h-[calc(100dvh-4rem)] sm:max-h-[880px] sm:min-h-0 sm:overflow-hidden sm:rounded-[2.25rem] sm:border sm:border-odday-border sm:shadow-2xl sm:shadow-black/50",
         ].join(" ")}
       >
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-odday-accent/[0.08] blur-3xl float-orb" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-odday-accent/[0.08] blur-3xl float-orb"
+        />
         <header className="relative z-20 flex items-center gap-3 px-5 pb-3 pt-[max(1rem,env(safe-area-inset-top))]">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-odday-accent text-sm font-black text-black">O</div>
-          <div className="min-w-0 flex-1"><p className="text-[10px] font-bold tracking-[.22em] text-white/40">ODDAY</p><p className="truncate text-xs text-white/80">{label ?? "오늘을 조금 이상하게"}</p></div>
-          {progress != null && <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] text-white/60">{progress} / 4</span>}
+          <div
+            aria-hidden
+            className="flex h-9 w-9 items-center justify-center rounded-xl bg-odday-accent text-sm font-black text-black"
+          >
+            O
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-bold tracking-[.22em] text-white/40">
+              ODDAY
+            </p>
+            <p className="truncate text-xs text-white/80">
+              {label ?? "오늘을 조금 이상하게"}
+            </p>
+          </div>
+          {progress != null && (
+            <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] text-white/60">
+              {progress} / 4
+            </span>
+          )}
         </header>
-        {progress != null && <div className="relative z-20 flex gap-1.5 px-5 pb-2">{[1,2,3,4].map(step => <span key={step} className={`h-1 flex-1 rounded-full ${step <= progress ? "bg-odday-accent" : "bg-white/10"}`} />)}</div>}
+        {progress != null && (
+          <div className="relative z-20 flex gap-1.5 px-5 pb-2">
+            {[1, 2, 3, 4].map((step) => (
+              <span
+                key={step}
+                className={`h-1 flex-1 rounded-full ${
+                  step <= progress ? "bg-odday-accent" : "bg-white/10"
+                }`}
+              />
+            ))}
+          </div>
+        )}
         {/* 스크롤 영역: 상단 여백에 노치(safe-area) 반영 */}
         <div className="no-scrollbar relative z-10 flex flex-1 flex-col overflow-y-auto px-5 pb-8 pt-5">
           {children}

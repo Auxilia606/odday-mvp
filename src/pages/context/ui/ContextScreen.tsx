@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/shared/ui/Button";
+import { HeroBadge } from "@/shared/ui/HeroBadge";
 import { OptionGroup } from "@/shared/ui/OptionGroup";
 import { Screen } from "@/shared/ui/Screen";
 import type { ContextSelection, Duration, Party, Place } from "@/entities/quest";
@@ -31,7 +32,12 @@ export function ContextScreen({
         </Button>
       }
     >
-      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[.06] text-2xl">◎</div><h2 className="mb-1 text-[1.75rem] font-extrabold tracking-tight">지금 상황은 어떤가요?</h2>
+      <HeroBadge size="sm" tone="subtle" className="mb-6">
+        ◎
+      </HeroBadge>
+      <h2 className="mb-1 text-[1.75rem] font-extrabold tracking-tight">
+        지금 상황은 어떤가요?
+      </h2>
       <p className="mb-8 text-sm text-odday-muted">
         딱 맞는 Odday를 골라드릴게요.
       </p>

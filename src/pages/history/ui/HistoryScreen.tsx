@@ -36,7 +36,13 @@ export function HistoryScreen({
         </div>
       }
     >
-      <div className="mb-5 rounded-2xl bg-white/[.04] p-4"><p className="text-xs text-odday-muted">완료한 퀘스트</p><p className="mt-1 text-3xl font-black text-odday-accent">{records.length}</p></div><h2 className="mb-1 text-[1.75rem] font-extrabold">당신의 이상한 날들</h2>
+      <div className="mb-5 rounded-2xl bg-white/[.04] p-4">
+        <p className="text-xs text-odday-muted">완료한 퀘스트</p>
+        <p className="mt-1 text-3xl font-black text-odday-accent">
+          {records.length}
+        </p>
+      </div>
+      <h2 className="mb-1 text-[1.75rem] font-extrabold">당신의 이상한 날들</h2>
       <p className="mb-6 text-sm text-odday-muted">
         Odday로 평소와 다르게 행동한 기록이에요.
       </p>

@@ -73,7 +73,16 @@ export function QuestDetailScreen({
         ← 다른 퀘스트 보기
       </button>
 
-      {started && <div className="mb-5 flex items-center gap-3 rounded-2xl bg-emerald-400/[.07] p-3 text-sm text-emerald-300"><span className="h-3 w-3 animate-pulse rounded-full bg-emerald-400" />평소와 다른 순간을 만들고 있어요</div>}<Card className="bg-gradient-to-br from-odday-surface to-[#201a14]">
+      {started && (
+        <div className="mb-5 flex items-center gap-3 rounded-2xl bg-emerald-400/[.07] p-3 text-sm text-emerald-300">
+          <span
+            aria-hidden
+            className="h-3 w-3 animate-pulse rounded-full bg-emerald-400"
+          />
+          평소와 다른 순간을 만들고 있어요
+        </div>
+      )}
+      <Card className="bg-gradient-to-br from-odday-surface to-[#201a14]">
         <div className="mb-3 flex flex-wrap gap-1.5">
           <Tag>{CATEGORY_LABELS[quest.category]}</Tag>
           <Tag>{INTENSITY_LABELS[quest.intensity]}</Tag>
