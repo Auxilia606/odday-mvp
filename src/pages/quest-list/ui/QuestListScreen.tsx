@@ -23,15 +23,29 @@ export function QuestListScreen({
         </Button>
       }
     >
-      <div className="mb-4 self-start rounded-full bg-odday-accent/10 px-3 py-1.5 text-xs font-semibold text-odday-accent">● 지금 상황에 맞춰 골랐어요</div><h2 className="mb-1 text-[1.75rem] font-extrabold tracking-tight">오늘의 Odday를 골라보세요.</h2>
+      <div className="mb-4 self-start rounded-full bg-odday-accent/10 px-3 py-1.5 text-xs font-semibold text-odday-accent">
+        <span aria-hidden>● </span>지금 상황에 맞춰 골랐어요
+      </div>
+      <h2 className="mb-1 text-[1.75rem] font-extrabold tracking-tight">
+        오늘의 Odday를 골라보세요.
+      </h2>
       <p className="mb-6 text-sm text-odday-muted">
         마음에 드는 걸 하나 고르거나, 새로 받아볼 수 있어요.
       </p>
 
       <div className="space-y-3">
         {candidates.map((quest, index) => (
-          <Card key={quest.id} onClick={() => onSelect(quest)} className="relative overflow-hidden">
-            <span className="absolute right-4 top-4 text-4xl font-black text-white/[.035]">0{index + 1}</span>
+          <Card
+            key={quest.id}
+            onClick={() => onSelect(quest)}
+            className="relative overflow-hidden"
+          >
+            <span
+              aria-hidden
+              className="absolute right-4 top-4 text-4xl font-black text-white/[.035]"
+            >
+              0{index + 1}
+            </span>
             <div className="mb-2 flex flex-wrap gap-1.5">
               <Tag>{CATEGORY_LABELS[quest.category]}</Tag>
               <Tag>{INTENSITY_LABELS[quest.intensity]}</Tag>
