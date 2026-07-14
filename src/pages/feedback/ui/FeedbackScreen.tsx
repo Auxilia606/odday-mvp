@@ -46,7 +46,7 @@ export function FeedbackScreen({
   const ready = causedIdx !== null && retry !== null;
 
   return (
-    <Screen
+    <Screen label="경험 기록하기" progress={4}
       footer={
         <Button
           disabled={!ready}
@@ -64,7 +64,7 @@ export function FeedbackScreen({
         </Button>
       }
     >
-      <h2 className="mb-1 text-2xl font-bold">오늘이 조금 달라졌네요.</h2>
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400/15 text-2xl text-emerald-300">✓</div><h2 className="mb-1 text-[1.75rem] font-extrabold">오늘이 조금 달라졌네요.</h2>
       <p className="mb-8 text-sm text-odday-muted">두 가지만 여쭤볼게요.</p>
 
       <p className="mb-3 text-sm font-medium">

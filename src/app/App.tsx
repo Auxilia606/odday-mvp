@@ -42,6 +42,8 @@ export default function App() {
 
   return (
     <div className="relative min-h-full">
+      {/* key가 스텝마다 바뀌어 래퍼가 리마운트되고, screen-enter 진입 애니메이션이 화면 전환마다 재생된다 */}
+      <div key={flow.step} className="screen-enter">
       {flow.step === "start" && (
         <StartScreen onStart={flow.start} onViewHistory={flow.viewHistory} />
       )}
@@ -92,6 +94,7 @@ export default function App() {
       {flow.step === "history" && (
         <HistoryScreen onStart={flow.goToStart} onShare={handleShare} />
       )}
+      </div>
 
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-50 flex justify-center px-5">

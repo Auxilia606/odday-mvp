@@ -18,7 +18,7 @@ export function ContextScreen({
   const ready = place && party && duration;
 
   return (
-    <Screen
+    <Screen label="나에게 맞는 퀘스트 찾기" progress={1}
       footer={
         <Button
           disabled={!ready}
@@ -31,7 +31,7 @@ export function ContextScreen({
         </Button>
       }
     >
-      <h2 className="mb-1 text-2xl font-bold">지금 상황은 어떤가요?</h2>
+      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[.06] text-2xl">◎</div><h2 className="mb-1 text-[1.75rem] font-extrabold tracking-tight">지금 상황은 어떤가요?</h2>
       <p className="mb-8 text-sm text-odday-muted">
         딱 맞는 Odday를 골라드릴게요.
       </p>
