@@ -12,7 +12,7 @@
 | 문서 | 내용 | 언제 읽나 |
 | --- | --- | --- |
 | [fsd-concepts.md](./fsd-concepts.md) | FSD의 개념 — 레이어 / 슬라이스 / 세그먼트, 의존성 규칙, Public API | FSD를 처음 접할 때, 규칙이 헷갈릴 때 |
-| [odday-fsd-guide.md](./odday-fsd-guide.md) | 이 프로젝트에 FSD를 어떻게 적용하는가 — 현재 구조 → 목표 구조 매핑, 폴더 배치, 경로 별칭 | 새 폴더/파일을 만들 위치가 헷갈릴 때 |
+| [odday-fsd-guide.md](./odday-fsd-guide.md) | 이 프로젝트에 FSD를 어떻게 적용했는가 — 레이어별 구조 매핑, 폴더 배치, 경로 별칭 | 새 폴더/파일을 만들 위치가 헷갈릴 때 |
 | [adding-features.md](./adding-features.md) | 기능을 추가/수정할 때의 실무 절차와 체크리스트, 예제 | 실제로 작업을 시작할 때 |
 
 ## 30초 요약
@@ -38,9 +38,11 @@ app/pages/...      quest / feedback     ui / model / api / lib
 
 ## 도입 상태
 
-Odday MVP는 현재 flat 구조(`screens/`, `components/`, `lib/`, `state/`, `data/`, `types/`)입니다.
-FSD로의 전환은 **점진적으로** 진행합니다 — 기능 개발을 멈추지 않고, 새로 만지는 부분부터 FSD 구조로 옮깁니다.
-전환 순서와 매핑표는 [odday-fsd-guide.md](./odday-fsd-guide.md)를 참고하세요.
+Odday MVP는 **FSD 구조로의 전환을 마쳤습니다.** `src/`는 이제 `app / pages / features / entities / shared`
+레이어로 구성되며, 이전의 flat 구조(`screens/`, `components/`, `lib/`, `state/`, `data/`, `types/`)는 모두
+이관·제거되었습니다. 레이어별 배치와 매핑, 전환 과정에서의 판단은 [odday-fsd-guide.md](./odday-fsd-guide.md)를 참고하세요.
+
+앞으로 화면·기능을 추가할 때는 [adding-features.md](./adding-features.md)의 절차를 따릅니다.
 
 ## 출처 (웹 기반)
 
